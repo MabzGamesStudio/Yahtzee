@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Die.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Die/Die.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/Die.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Yatzee Calculator" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Die" expanded="True" />
+                <Node name="Die.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0418a2d0-5507-4e94-935b-b24d5418265b" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
