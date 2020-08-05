@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RollDice : MonoBehaviour
 {
@@ -9,6 +10,21 @@ public class RollDice : MonoBehaviour
 	/// The sprite renderer of the roll dice button
 	/// </summary>
 	SpriteRenderer spriteRenderer;
+
+	/// <summary>
+	/// The scripts for the 5 dice
+	/// </summary>
+	public Die[] dieScripts;
+
+	/// <summary>
+	/// This is the text that displays the number of rolls left in the turn
+	/// </summary>
+	public TextMeshProUGUI rollsLeftText;
+
+	/// <summary>
+	/// This is the number of rolls left the player has in their turn
+	/// </summary>
+	int rollsLeft;
 
 	/// <summary>
 	/// The dice holder script
@@ -25,6 +41,9 @@ public class RollDice : MonoBehaviour
 	/// </summary>
 	BoxCollider2D boxCollider;
 
+	/// <summary>
+	/// These are the positions for the dice to roll to depending on the number of dice in the holder
+	/// </summary>
 	public Vector2 roll1Position;
 	public Vector2[] roll2Position;
 	public Vector2[] roll3Position;
@@ -51,6 +70,7 @@ public class RollDice : MonoBehaviour
 	{
 		boxCollider = GetComponent<BoxCollider2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		rollsLeft = 3;
 	}
 
 	/// <summary>
@@ -105,43 +125,66 @@ public class RollDice : MonoBehaviour
 	/// </summary>
 	void StartRollDice()
 	{
-
-		// The dice to roll is received from the dice roll holder script
-		diceToRoll = diceRollHolder.DiceToBeRolled();
-
-		// This rolls each die in the roll holder
-		for (int i = 0; i < diceToRoll.Count; i++)
+		if (AreaClear() && rollsLeft > 0)
 		{
-			diceToRoll[i].RollDie();
-			diceToRoll[i].MoveDieOutOfRollHolder();
-			diceRollHolder.EmptyHolder();
-		}
 
-		// This shuffles the order of the dice
-		diceToRoll = ShuffleDice(diceToRoll);
+			// This decreases the number of rolls left in this turn
+			rollsLeft--;
+			rollsLeftText.SetText("Rolls Left: " + rollsLeft);
 
-		// This moves each die to a spot in the open area
-		for (int i = 0; i < diceToRoll.Count; i++)
-		{
-			switch (diceToRoll.Count)
+			// The dice to roll is received from the dice roll holder script
+			diceToRoll = diceRollHolder.DiceToBeRolled();
+
+			// This rolls each die in the roll holder
+			for (int i = 0; i < diceToRoll.Count; i++)
 			{
-				case 1:
-					diceToRoll[i].MoveDie(roll1Position, rollDiceTime);
-					break;
-				case 2:
-					diceToRoll[i].MoveDie(roll2Position[i], rollDiceTime);
-					break;
-				case 3:
-					diceToRoll[i].MoveDie(roll3Position[i], rollDiceTime);
-					break;
-				case 4:
-					diceToRoll[i].MoveDie(roll4Position[i], rollDiceTime);
-					break;
-				case 5:
-					diceToRoll[i].MoveDie(roll5Position[i], rollDiceTime);
-					break;
+				diceToRoll[i].RollDie();
+				diceToRoll[i].MoveDieOutOfRollHolder();
+				diceRollHolder.EmptyHolder();
+			}
+
+			// This shuffles the order of the dice
+			diceToRoll = ShuffleDice(diceToRoll);
+
+			// This moves each die to a spot in the open area
+			for (int i = 0; i < diceToRoll.Count; i++)
+			{
+				switch (diceToRoll.Count)
+				{
+					case 1:
+						diceToRoll[i].MoveDie(roll1Position, rollDiceTime);
+						break;
+					case 2:
+						diceToRoll[i].MoveDie(roll2Position[i], rollDiceTime);
+						break;
+					case 3:
+						diceToRoll[i].MoveDie(roll3Position[i], rollDiceTime);
+						break;
+					case 4:
+						diceToRoll[i].MoveDie(roll4Position[i], rollDiceTime);
+						break;
+					case 5:
+						diceToRoll[i].MoveDie(roll5Position[i], rollDiceTime);
+						break;
+				}
 			}
 		}
+	}
+
+	/// <summary>
+	/// This tells whether there are any dice left in the middle area
+	/// </summary>
+	/// <returns>Returns whether there are any dice left in the middle area</returns>
+	bool AreaClear()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (!dieScripts[i].DieInHolder() && !dieScripts[i].DieInRollHolder())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/// <summary>

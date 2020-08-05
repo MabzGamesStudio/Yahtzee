@@ -348,6 +348,24 @@ public class Die : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This returns whether the die is in the roll holder
+	/// </summary>
+	/// <returns>This returns whether the die is in the roll holder</returns>
+	public bool DieInRollHolder()
+	{
+		return dieInRollHolder;
+	}
+
+	/// <summary>
+	/// This returns whether the die is in the hold holder
+	/// </summary>
+	/// <returns>This returns whether the die is in the hold holder</returns>
+	public bool DieInHolder()
+	{
+		return dieInHolder;
+	}
+
+	/// <summary>
 	/// This rolls the die to a random number and animates the shake if animatable is true
 	/// </summary>
 	public void RollDie()

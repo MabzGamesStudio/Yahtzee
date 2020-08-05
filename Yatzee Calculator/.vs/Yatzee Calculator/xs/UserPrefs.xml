@@ -1,10 +1,5 @@
 ﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DiceToRoll.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Die/Die.cs" Line="788" Column="2" />
-      <File FileName="Assets/RollDice.cs" Line="139" Column="60" />
-      <File FileName="Assets/Scripts/DiceToRoll.cs" Line="128" Column="13" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -12,7 +7,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Die" expanded="True" />
-                <Node name="DiceToRoll.cs" selected="True" />
+                <Node name="RollDice.cs" selected="True" />
               </Node>
             </Node>
           </Node>
