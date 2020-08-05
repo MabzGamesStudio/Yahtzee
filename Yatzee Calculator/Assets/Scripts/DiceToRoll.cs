@@ -101,6 +101,18 @@ public class DiceToRoll : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This sets the diceHeld variable to 0 and sets all diceInHolder bools to false
+	/// </summary>
+	public void EmptyHolder()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			diceInHolder[i] = false;
+		}
+		diceHeld = 0;
+	}
+
+	/// <summary>
 	/// This checks to see whether a held die should be moved into the holder
 	/// </summary>
 	void CheckDieMovedIntoHolder()
@@ -116,6 +128,17 @@ public class DiceToRoll : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This updates whether the dice are sliding to a new position
+	/// </summary>
+	void UpdateDieSlidingBack()
+	{
+		for (int i = 0; i < diceToRoll.Length; i++)
+		{
+			dieSlidingBack[i] = diceToRoll[i].SlidingToNewPosition();
+		}
+	}
+
+	/// <summary>
 	/// This checks to see if the held die should move the positions of the dice already in the holder
 	/// </summary>
 	void CheckDieNewHolderPositions()
@@ -123,6 +146,10 @@ public class DiceToRoll : MonoBehaviour
 
 		// This tells wether any of the dice are sliding into a new position
 		bool anyDiceSliding = false;
+
+		// This updates whether the dice are sliding to a new position
+		UpdateDieSlidingBack();
+
 		for (int i = 0; i < 5; i++)
 		{
 			if (dieSlidingBack[i])
@@ -486,4 +513,22 @@ public class DiceToRoll : MonoBehaviour
 				break;
 		}
 	}
+
+	/// <summary>
+	/// This returns the list of Die objects that are held in the roll holder
+	/// </summary>
+	/// <returns>A list of Die objects in the roll holder</returns>
+	public List<Die> DiceToBeRolled()
+	{
+		List<Die> dice = new List<Die>();
+		for (int i = 0; i < 5; i++)
+		{
+			if (diceInHolder[i])
+			{
+				dice.Add(diceToRoll[i]);
+			}
+		}
+		return dice;
+	}
+
 }

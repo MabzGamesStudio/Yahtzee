@@ -634,6 +634,14 @@ public class Die : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This moves the die out of the roll holder by setting dieInRollHolder to false
+	/// </summary>
+	public void MoveDieOutOfRollHolder()
+	{
+		dieInRollHolder = false;
+	}
+
+	/// <summary>
 	/// This gives whether the die was just dropped
 	/// </summary>
 	/// <returns>This returns whether the die was just dropped</returns>

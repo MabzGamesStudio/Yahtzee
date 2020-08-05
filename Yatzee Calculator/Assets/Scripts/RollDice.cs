@@ -1,0 +1,170 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RollDice : MonoBehaviour
+{
+
+	/// <summary>
+	/// The sprite renderer of the roll dice button
+	/// </summary>
+	SpriteRenderer spriteRenderer;
+
+	/// <summary>
+	/// The dice holder script
+	/// </summary>
+	public DiceToRoll diceRollHolder;
+
+	/// <summary>
+	/// The list of dice that are rolled once the button is clicked
+	/// </summary>
+	List<Die> diceToRoll;
+
+	/// <summary>
+	/// The box collider of the roll dice button
+	/// </summary>
+	BoxCollider2D boxCollider;
+
+	public Vector2 roll1Position;
+	public Vector2[] roll2Position;
+	public Vector2[] roll3Position;
+	public Vector2[] roll4Position;
+	public Vector2[] roll5Position;
+
+	/// <summary>
+	/// The time it takes to move the dice from the holder to the open are when rolled
+	/// </summary>
+	public float rollDiceTime;
+
+	/// <summary>
+	/// When this object is created it initializes variables
+	/// </summary>
+	void Start()
+	{
+		Initialize();
+	}
+
+	/// <summary>
+	/// The box collider 2D and sprite renderer components are initialized
+	/// </summary>
+	void Initialize()
+	{
+		boxCollider = GetComponent<BoxCollider2D>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+	}
+
+	/// <summary>
+	/// Every frame this checks if the mouse was clicked or if the mouse is hovering over the button
+	/// </summary>
+	void Update()
+	{
+		MouseClicked();
+		MouseHoverOverButton();
+	}
+
+	/// <summary>
+	/// This checks to see if the mouse clicks the roll dice button
+	/// </summary>
+	void MouseClicked()
+	{
+
+		// This checks if the left mouse button was clicked
+		if (Input.GetMouseButtonDown(0))
+		{
+
+			// This checks if the mouse overlaps the box collider of the button and then rolls the dice in the holder
+			if (boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+			{
+				StartRollDice();
+			}
+		}
+
+	}
+
+	/// <summary>
+	/// This checks to see whether the mouse is hovering over the button
+	/// </summary>
+	void MouseHoverOverButton()
+	{
+
+		// If the mouse is hovering over the button then the button becomes shaded
+		if (boxCollider.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)))
+		{
+			spriteRenderer.color = new Color(.5f, .5f, .5f);
+		}
+
+		// If the mouse is not hovering over the button then the button becomes unshaded
+		else
+		{
+			spriteRenderer.color = Color.white;
+		}
+	}
+
+	/// <summary>
+	/// This rolls the dice in the roll holder
+	/// </summary>
+	void StartRollDice()
+	{
+
+		// The dice to roll is received from the dice roll holder script
+		diceToRoll = diceRollHolder.DiceToBeRolled();
+
+		// This rolls each die in the roll holder
+		for (int i = 0; i < diceToRoll.Count; i++)
+		{
+			diceToRoll[i].RollDie();
+			diceToRoll[i].MoveDieOutOfRollHolder();
+			diceRollHolder.EmptyHolder();
+		}
+
+		// This shuffles the order of the dice
+		diceToRoll = ShuffleDice(diceToRoll);
+
+		// This moves each die to a spot in the open area
+		for (int i = 0; i < diceToRoll.Count; i++)
+		{
+			switch (diceToRoll.Count)
+			{
+				case 1:
+					diceToRoll[i].MoveDie(roll1Position, rollDiceTime);
+					break;
+				case 2:
+					diceToRoll[i].MoveDie(roll2Position[i], rollDiceTime);
+					break;
+				case 3:
+					diceToRoll[i].MoveDie(roll3Position[i], rollDiceTime);
+					break;
+				case 4:
+					diceToRoll[i].MoveDie(roll4Position[i], rollDiceTime);
+					break;
+				case 5:
+					diceToRoll[i].MoveDie(roll5Position[i], rollDiceTime);
+					break;
+			}
+		}
+	}
+
+	/// <summary>
+	/// This shuffles the order of the dice
+	/// </summary>
+	/// <param name="diceToShuffle">The list of Die that will be shuffled</param>
+	/// <returns>A shuffled list of the given Die</returns>
+	List<Die> ShuffleDice(List<Die> diceToShuffle)
+	{
+
+		// This creates a new Die list
+		List<Die> newDice = new List<Die>();
+
+		// This records the size of the list array because the diceToShuffle count is changin throughout the for loop
+		int diceCount = diceToShuffle.Count;
+
+		// This repeatedly adds a random die from the old list to the new Die list and deletes the old die so no dice are repeatedly added
+		for (int i = 0; i < diceCount; i++)
+		{
+			int randomNumber = Random.Range(0, diceToShuffle.Count);
+			newDice.Add(diceToShuffle[randomNumber]);
+			diceToShuffle.RemoveAt(randomNumber);
+		}
+		return newDice;
+	}
+}
