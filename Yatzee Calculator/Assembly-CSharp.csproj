@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Die\Die.cs" />
     <Compile Include="Assets\Scripts\Die\DieEditor.cs" />
     <Compile Include="Assets\Scripts\RollDice.cs" />
+    <Compile Include="Assets\Scripts\YahtzeeScoring.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
