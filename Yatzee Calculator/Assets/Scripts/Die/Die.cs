@@ -136,6 +136,11 @@ public class Die : MonoBehaviour
 	public DiceToRoll diceRollHolder;
 
 	/// <summary>
+	/// The index of the die in the roll holder when the game starts
+	/// </summary>
+	public int rollHolderIndexStart;
+
+	/// <summary>
 	/// This is the magnitude of the shake when the die is dragged to a spot where it can not be placed
 	/// </summary>
 	[Header("Invalid New Spot Shake Settings")]
@@ -313,9 +318,11 @@ public class Die : MonoBehaviour
 		slidingToNewPosition = false;
 		isShaking = false;
 		dieInHolder = false;
+		dieInRollHolder = true;
 		originalPosition = transform.localPosition;
 		movingToPosition = transform.localPosition;
 		indexInHolder = -1;
+		indexInRollHolder = rollHolderIndexStart;
 	}
 
 	/// <summary>

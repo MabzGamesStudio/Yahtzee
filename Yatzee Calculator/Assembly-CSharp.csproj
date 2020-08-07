@@ -63,11 +63,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scorecard.cs" />
     <Compile Include="Assets\Scripts\DiceToHold.cs" />
     <Compile Include="Assets\Scripts\DiceToRoll.cs" />
     <Compile Include="Assets\Scripts\Die\Die.cs" />
     <Compile Include="Assets\Scripts\Die\DieEditor.cs" />
     <Compile Include="Assets\Scripts\RollDice.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoreCardBox.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxAces.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxBonus.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxBottomTotal.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxChance.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxFives.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxFourOfAKind.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxFours.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxFullHouse.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxGrandTotal.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxLargeStraight.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxSixes.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxSmallStraight.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxThreeOfAKind.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxThrees.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxTopTotal.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxTwos.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzee.cs" />
+    <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzeeBonus.cs" />
+    <Compile Include="Assets\Scripts\ScoringColumn.cs" />
     <Compile Include="Assets\Scripts\YahtzeeScoring.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

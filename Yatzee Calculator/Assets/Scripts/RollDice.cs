@@ -42,6 +42,11 @@ public class RollDice : MonoBehaviour
 	BoxCollider2D boxCollider;
 
 	/// <summary>
+	/// The scorecard for the Yahtzee game
+	/// </summary>
+	public Scorecard scorecard;
+
+	/// <summary>
 	/// These are the positions for the dice to roll to depending on the number of dice in the holder
 	/// </summary>
 	public Vector2 roll1Position;
@@ -71,6 +76,15 @@ public class RollDice : MonoBehaviour
 		boxCollider = GetComponent<BoxCollider2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		rollsLeft = 3;
+	}
+
+	/// <summary>
+	/// This resets the rolls left variable and text tp three
+	/// </summary>
+	public void NewTurn()
+	{
+		rollsLeft = 3;
+		rollsLeftText.SetText("Rolls Left: 3");
 	}
 
 	/// <summary>
@@ -127,6 +141,9 @@ public class RollDice : MonoBehaviour
 	{
 		if (AreaClear() && rollsLeft > 0)
 		{
+
+			// This tells the scorecard that the dice have been rolled
+			scorecard.DiceRolled();
 
 			// This decreases the number of rolls left in this turn
 			rollsLeft--;

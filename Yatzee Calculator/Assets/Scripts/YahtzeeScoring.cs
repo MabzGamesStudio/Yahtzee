@@ -404,16 +404,15 @@ public static class YahtzeeScoring
 	}
 
 	/// <summary>
-	/// This returns the points awarded for yahtzee given a hand of 5 dice and the current yahtzee points
+	/// This returns the points awarded for yahtzee given a hand of 5 dice
 	/// </summary>
 	/// <param name="die1">The first die</param>
 	/// <param name="die2">The second die</param>
 	/// <param name="die3">The third die</param>
 	/// <param name="die4">The fourth die</param>
 	/// <param name="die5">The fifth die</param>
-	/// <param name="currentYahtzeePoints">The current points in the yahtzee category</param>
 	/// <returns>The points awarded for the yahzee category</returns>
-	public static int Yahtzee(int die1, int die2, int die3, int die4, int die5, int currentYahtzeePoints)
+	public static int Yahtzee(int die1, int die2, int die3, int die4, int die5)
 	{
 
 		// An array to hold the count of each number
@@ -431,25 +430,50 @@ public static class YahtzeeScoring
 		{
 			if (dieNumbers[i] == 5)
 			{
-				if (currentYahtzeePoints == 0)
-				{
-					return 50;
-				}
-				else if (currentYahtzeePoints == 50)
-				{
-					return 150;
-				}
-				else if (currentYahtzeePoints == 150)
-				{
-					return 250;
-				}
-				else if (currentYahtzeePoints == 250)
-				{
-					return 350;
-				}
+				return 50;
 			}
 		}
-		return currentYahtzeePoints;
+		return 0;
+	}
+
+	/// <summary>
+	/// This returns the points awarded for yahtzee bonus given a hand of 5 dice and the current yahtzee points
+	/// </summary>
+	/// <param name="die1">The first die</param>
+	/// <param name="die2">The second die</param>
+	/// <param name="die3">The third die</param>
+	/// <param name="die4">The fourth die</param>
+	/// <param name="die5">The fifth die</param>
+	/// <param name="currentYahtzeePoints">The current points in the yahtzee category</param>
+	/// <returns>The points awarded for the yahzee bonus category</returns>
+	public static int YahtzeeBonus(int die1, int die2, int die3, int die4, int die5, int currentYahtzeeBonus, int currentYahtzee)
+	{
+
+		// There is no Yahtzee Bonus unless one Yahtzee is already filled in with 50 points
+		if (currentYahtzee != 50)
+		{
+			return 0;
+		}
+
+		// An array to hold the count of each number
+		int[] dieNumbers = new int[6];
+
+		// Counting each number for each die based on its number category
+		dieNumbers[die1 - 1]++;
+		dieNumbers[die2 - 1]++;
+		dieNumbers[die3 - 1]++;
+		dieNumbers[die4 - 1]++;
+		dieNumbers[die5 - 1]++;
+
+		// Seeing if any number category is equal to 5
+		for (int i = 0; i < 6; i++)
+		{
+			if (dieNumbers[i] == 5)
+			{
+				return currentYahtzeeBonus += 100;
+			}
+		}
+		return currentYahtzeeBonus;
 	}
 
 	/// <summary>

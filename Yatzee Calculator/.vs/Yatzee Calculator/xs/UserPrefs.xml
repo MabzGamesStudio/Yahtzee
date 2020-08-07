@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Temp.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ScoringBoxes/ScoreCardBox.cs">
     <Files>
-      <File FileName="Assets/Scripts/YahtzeeScoring.cs" Line="446" Column="49" />
-      <File FileName="Assets/Scripts/RollDice.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DiceToHold.cs" Line="1" Column="1" />
-      <File FileName="Assets/Temp.cs" Line="18" Column="1" />
+      <File FileName="Assets/ScoringColumn.cs" Line="115" Column="32" />
+      <File FileName="Assets/Scripts/ScoringBoxes/ScoreCardBox.cs" Line="149" Column="29" />
+      <File FileName="Assets/Scripts/RollDice.cs" Line="82" Column="59" />
+      <File FileName="Assets/Scorecard.cs" Line="22" Column="28" />
+      <File FileName="Assets/Scripts/ScoringBoxes/ScoringBoxAces.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,8 +14,10 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Die" expanded="True" />
+                <Node name="ScoringBoxes" expanded="True">
+                  <Node name="ScoreCardBox.cs" selected="True" />
+                </Node>
               </Node>
-              <Node name="Temp.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -23,7 +26,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0418a2d0-5507-4e94-935b-b24d5418265b" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="aea0b09d-c2a0-4ef0-b7dd-0db490470a46" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
