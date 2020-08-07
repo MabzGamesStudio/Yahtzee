@@ -5,6 +5,9 @@ using UnityEngine;
 public class ScoringBoxTopTotal : ScoreCardBox
 {
 
+	/// <summary>
+	/// The top section scoring boxes in the same column
+	/// </summary>
 	public ScoringBoxAces aces;
 	public ScoringBoxTwos twos;
 	public ScoringBoxThrees threes;
@@ -13,42 +16,54 @@ public class ScoringBoxTopTotal : ScoreCardBox
 	public ScoringBoxSixes sixes;
 	public ScoringBoxBonus bonus;
 
-	// Start is called before the first frame update
+	/// <summary>
+	/// When the box is created it initializes variables
+	/// </summary>
 	void Start()
 	{
 		Initialize();
 	}
 
-
-	protected override void UpdateInformation()
+	/// <summary>
+	/// This checks to see whether the bonus box should be filled in
+	/// </summary>
+	void CheckForFillIn()
 	{
-		if (!boxFilledIn)
-		{
-			if (bonus.IsBoxFilledIn())
-			{
-				score = GetPoints();
-				boxFilledIn = true;
-				SetIfTextGrayedOut(false);
-				SetIfBoxSelcted(false);
-			}
 
-			textMeshPro.SetText(YahtzeeScoring.TopTotal(aces.GetScore(), twos.GetScore(), threes.GetScore(), fours.GetScore(), fives.GetScore(), sixes.GetScore(), bonus.GetScore()).ToString());
+		// If all the top section boxes are filled it fills in the box and sets the score for the box
+		if (bonus.IsBoxFilledIn())
+		{
+			score = GetPoints();
+			boxFilledIn = true;
+			SetIfTextGrayedOut(false);
+			SetIfBoxSelcted(false);
 		}
 	}
 
+	/// <summary>
+	/// This box can not be filled in by the user
+	/// </summary>
+	/// <returns>This box can not be filled in by the user</returns>
 	protected override bool ShouldBoxBeFilledIn()
 	{
 		return false;
 	}
 
+	/// <summary>
+	/// This uses the yahtzee scoring class to tell the points in this box's category
+	/// </summary>
+	/// <returns>Points in the top total category based on the top section</returns>
 	public override int GetPoints()
 	{
 		return YahtzeeScoring.TopTotal(aces.GetScore(), twos.GetScore(), threes.GetScore(), fours.GetScore(), fives.GetScore(), sixes.GetScore(), bonus.GetScore());
 	}
 
-	// Update is called once per frame
+	/// <summary>
+	/// Every frame this updates the information, checks to see if the box should be filled in and checks for a mouse click to enter key to be selected
+	/// </summary>
 	void Update()
 	{
+		CheckForFillIn();
 		UpdateInformation();
 		CheckForEnterKey();
 		CheckForMouseClick();

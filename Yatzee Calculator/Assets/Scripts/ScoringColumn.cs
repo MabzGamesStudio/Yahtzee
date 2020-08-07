@@ -5,9 +5,19 @@ using UnityEngine;
 public class ScoringColumn : MonoBehaviour
 {
 
+	/// <summary>
+	/// This tells the turn that this column is on (1-13)
+	/// </summary>
 	int turn;
+
+	/// <summary>
+	/// This tells how many rolls there are left in this turn
+	/// </summary>
 	int rollsLeft;
 
+	/// <summary>
+	/// These are all of the boxes in this column
+	/// </summary>
 	public ScoringBoxAces aces;
 	public ScoringBoxTwos twos;
 	public ScoringBoxThrees threes;
@@ -27,9 +37,14 @@ public class ScoringColumn : MonoBehaviour
 	public ScoringBoxBottomTotal bottomTotal;
 	public ScoringBoxGrandTotal grandTotal;
 
+	/// <summary>
+	/// This is the scorecard that this column is in
+	/// </summary>
 	public Scorecard scorecard;
 
-
+	/// <summary>
+	/// This hides all of the grayed out text in the boxes excluding yahtzee bonus
+	/// </summary>
 	void HideGrayedOutScores()
 	{
 		if (!aces.IsBoxFilledIn())
@@ -86,11 +101,17 @@ public class ScoringColumn : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// This decrements the rolls left
+	/// </summary>
 	public void DiceRolled()
 	{
 		rollsLeft--;
 	}
 
+	/// <summary>
+	/// This shows all of the text in the boxes
+	/// </summary>
 	void ShowGrayedOutScores()
 	{
 		aces.ShowText();
@@ -108,21 +129,38 @@ public class ScoringColumn : MonoBehaviour
 		chance.ShowText();
 	}
 
+	/// <summary>
+	/// This tells this column that they have made a new turn
+	/// </summary>
 	public void NewTurn()
 	{
+
+		// This sets the rolls to 3, increases the turn count, and tells the scorecard that a category was selected
 		rollsLeft = 3;
 		turn++;
 		scorecard.CategorySelected();
 	}
 
-	// Start is called before the first frame update
+	/// <summary>
+	/// When the column is created it initializes variables
+	/// </summary>
 	void Start()
+	{
+		Initialize();
+	}
+
+	/// <summary>
+	/// This sets the turn to 1 and sets the rolls to 3
+	/// </summary>
+	void Initialize()
 	{
 		turn = 1;
 		rollsLeft = 3;
 	}
 
-	// Update is called once per frame
+	/// <summary>
+	/// Every frame it hides grayed out scores if there are 3 rolls left and shows grayed out scores otherwise
+	/// </summary>
 	void Update()
 	{
 		if (rollsLeft != 3)

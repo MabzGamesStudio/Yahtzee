@@ -33,6 +33,16 @@ public abstract class ScoreCardBox : MonoBehaviour
 	public Color normalColor;
 
 	/// <summary>
+	/// These are the numbers of the held dice
+	/// </summary>
+	protected int[] diceNumbers;
+
+	/// <summary>
+	/// These are the scripts for the dice
+	/// </summary>
+	public Die[] dice;
+
+	/// <summary>
 	/// The text mesh pro component
 	/// </summary>
 	protected TextMeshProUGUI textMeshPro;
@@ -153,7 +163,26 @@ public abstract class ScoreCardBox : MonoBehaviour
 	/// <summary>
 	/// This updates the information in the box based on the dice
 	/// </summary>
-	protected abstract void UpdateInformation();
+	protected void UpdateDiceNumbers()
+	{
+		diceNumbers = new int[5];
+		for (int i = 0; i < 5; i++)
+		{
+			diceNumbers[i] = dice[i].number;
+		}
+	}
+
+	/// <summary>
+	/// This updates the number in the box to match the rest of the scorecard and held dice
+	/// </summary>
+	protected virtual void UpdateInformation()
+	{
+		if (!boxFilledIn)
+		{
+			UpdateDiceNumbers();
+			textMeshPro.SetText(GetPoints().ToString());
+		}
+	}
 
 	/// <summary>
 	/// This returns the points for the category based on the current dice

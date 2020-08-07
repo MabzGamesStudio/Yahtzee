@@ -5,45 +5,35 @@ using UnityEngine;
 public class ScoringBoxAces : ScoreCardBox
 {
 
-	public Die[] dice;
-	int[] diceNumbers;
-
-	// Start is called before the first frame update
+	/// <summary>
+	/// When this box is created it initializes variables
+	/// </summary>
 	void Start()
 	{
 		Initialize();
 	}
 
-
-	void UpdateDiceNumbers()
-	{
-		diceNumbers = new int[5];
-		for (int i = 0; i < 5; i++)
-		{
-			diceNumbers[i] = dice[i].number;
-		}
-	}
-
-	protected override void UpdateInformation()
-	{
-		if (!boxFilledIn)
-		{
-			UpdateDiceNumbers();
-			textMeshPro.SetText(YahtzeeScoring.Aces(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]).ToString());
-		}
-	}
-
+	/// <summary>
+	/// This box can be filled in by the user
+	/// </summary>
+	/// <returns>This box can be filled in by the user</returns>
 	protected override bool ShouldBoxBeFilledIn()
 	{
 		return true;
 	}
 
+	/// <summary>
+	/// This uses the yahtzee scoring class to tell the points in this box's category
+	/// </summary>
+	/// <returns>Points in the aces category based on the dice</returns>
 	public override int GetPoints()
 	{
 		return YahtzeeScoring.Aces(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]);
 	}
 
-	// Update is called once per frame
+	/// <summary>
+	/// This updates the information in the box and checks to see if the mouse was clicked or if the enter key was pressed and reacts appropriately
+	/// </summary>
 	void Update()
 	{
 		UpdateInformation();
