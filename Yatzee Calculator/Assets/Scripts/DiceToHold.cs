@@ -59,6 +59,12 @@ public class DiceToHold : MonoBehaviour
 	/// </summary>
 	public bool canHoldDice;
 
+
+	/// <summary>
+	/// This is the index of the die that is sliding back to the holder
+	/// </summary>
+	int dieSlidingBackIndex;
+
 	/// <summary>
 	/// When the holder is created it initializes variables
 	/// </summary>
@@ -219,6 +225,7 @@ public class DiceToHold : MonoBehaviour
 					diceHeld++;
 					diceIndexes.Add(i);
 				}
+				dieSlidingBackIndex = i;
 				diceInHolder[i] = true;
 				break;
 			}
@@ -276,6 +283,7 @@ public class DiceToHold : MonoBehaviour
 					diceHeld--;
 					diceIndexes.Remove(i);
 				}
+				dieSlidingBackIndex = i;
 				diceInHolder[i] = false;
 				break;
 			}
@@ -291,23 +299,6 @@ public class DiceToHold : MonoBehaviour
 	/// </summary>
 	void OrderDice()
 	{
-
-		// This tells whether any die is sliding
-		bool anyDieSliding = false;
-
-		// This tells the index of a sliding die (-1 if there is none)
-		int slidingDieIndex = -1;
-
-		// If any die is sliding it records the index and sets anyDieSliding to true
-		for (int i = 0; i < 5; i++)
-		{
-			if (dieSlidingBack[i])
-			{
-				anyDieSliding = true;
-				slidingDieIndex = i;
-				break;
-			}
-		}
 
 		// This is the index positions of the dice
 		int[] dieIndexes = new int[] { 0, 1, 2, 3, 4 };
@@ -348,12 +339,11 @@ public class DiceToHold : MonoBehaviour
 		}
 
 		// If the held die has left the holder and is sliding back it returns to its original position
-		if (anyDieSliding && diceToHold[slidingDieIndex].GetDieLastIndex() != -1 && diceInHolder[slidingDieIndex] && dieLeftHolder)
+		if (diceToHold[dieSlidingBackIndex].GetDieLastIndex() != -1 && diceInHolder[dieSlidingBackIndex] && dieLeftHolder)
 		{
 			dieLeftHolder = false;
-			this.diceIndexes.Remove(slidingDieIndex);
-			diceIndexes.Insert(diceToHold[slidingDieIndex].GetDieLastIndex(), slidingDieIndex);
-			diceToHold[slidingDieIndex].SetDieLastIndex(-1);
+			diceIndexes.Remove(dieSlidingBackIndex);
+			diceIndexes.Insert(diceToHold[dieSlidingBackIndex].GetDieLastIndex(), dieSlidingBackIndex);
 		}
 
 	}

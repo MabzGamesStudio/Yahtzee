@@ -146,6 +146,11 @@ public class Die : MonoBehaviour
 	bool canEnterHolder;
 
 	/// <summary>
+	/// This tells whether the die is allowed to enter the roll holder
+	/// </summary>
+	bool canEnterRollHolder;
+
+	/// <summary>
 	/// This is the magnitude of the shake when the die is dragged to a spot where it can not be placed
 	/// </summary>
 	[Header("Invalid New Spot Shake Settings")]
@@ -328,6 +333,8 @@ public class Die : MonoBehaviour
 		movingToPosition = transform.localPosition;
 		indexInHolder = -1;
 		indexInRollHolder = rollHolderIndexStart;
+		canEnterHolder = false;
+		canEnterRollHolder = true;
 	}
 
 	/// <summary>
@@ -632,7 +639,7 @@ public class Die : MonoBehaviour
 		}
 
 		// This moves the die if it is already in the roll holder
-		else if (boxCollider.bounds.Intersects(diceRollHolder.GetBoxCollider().bounds))
+		else if (canEnterRollHolder && boxCollider.bounds.Intersects(diceRollHolder.GetBoxCollider().bounds))
 		{
 			dieInRollHolder = true;
 			dieInHolder = false;
@@ -912,5 +919,14 @@ public class Die : MonoBehaviour
 	public void SetIfDieCanEnterHolder(bool canEnter)
 	{
 		canEnterHolder = canEnter;
+	}
+
+	/// <summary>
+	/// This sets whether the die is able to enter the roll holder
+	/// </summary>
+	/// <param name="canEnter">Whether the die can enter the roll holder</param>
+	public void SetIfDieCanEnterRollHolder(bool canEnter)
+	{
+		canEnterRollHolder = canEnter;
 	}
 }

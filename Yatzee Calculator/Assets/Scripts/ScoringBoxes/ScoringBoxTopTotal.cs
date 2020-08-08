@@ -55,7 +55,7 @@ public class ScoringBoxTopTotal : ScoreCardBox
 	/// <returns>Points in the top total category based on the top section</returns>
 	public override int GetPoints()
 	{
-		return YahtzeeScoring.TopTotal(aces.GetScore(), twos.GetScore(), threes.GetScore(), fours.GetScore(), fives.GetScore(), sixes.GetScore(), bonus.GetScore());
+		return YahtzeeScoring.TopTotal(aces.GetScore(), twos.GetScore(), threes.GetScore(), fours.GetScore(), fives.GetScore(), sixes.GetScore(), bonus.GetPoints());
 	}
 
 	/// <summary>

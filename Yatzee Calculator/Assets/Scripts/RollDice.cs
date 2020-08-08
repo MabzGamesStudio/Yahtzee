@@ -85,16 +85,27 @@ public class RollDice : MonoBehaviour
 	}
 
 	/// <summary>
-	/// This resets the rolls left variable and text to three and makes it so that the dice can not enter the holder
+	/// This creates appropriate actions when there is a new turn
 	/// </summary>
 	public void NewTurn()
 	{
+
+		// The rolls left number and text is updated to 3
 		rollsLeft = 3;
 		rollsLeftText.SetText("Rolls Left: 3");
+
+		// The holder for the dice is not enabled
 		diceHolder.SetHolderEnabled(false);
 		for (int i = 0; i < dieScripts.Length; i++)
 		{
 			dieScripts[i].SetIfDieCanEnterHolder(false);
+		}
+
+		// The roll holder for the dice becomes enabled
+		diceRollHolder.SetHolderEnabled(true);
+		for (int i = 0; i < dieScripts.Length; i++)
+		{
+			dieScripts[i].SetIfDieCanEnterRollHolder(true);
 		}
 	}
 
@@ -150,6 +161,16 @@ public class RollDice : MonoBehaviour
 	/// </summary>
 	void StartRollDice()
 	{
+		if (rollsLeft == 1)
+		{
+
+			// This tells the dice roll holder and dice that it is not able to hold dice
+			diceRollHolder.SetHolderEnabled(false);
+			for (int i = 0; i < dieScripts.Length; i++)
+			{
+				dieScripts[i].SetIfDieCanEnterRollHolder(false);
+			}
+		}
 		if (AreaClear() && rollsLeft > 0)
 		{
 

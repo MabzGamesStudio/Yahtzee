@@ -55,6 +55,16 @@ public class DiceToRoll : MonoBehaviour
 	public Vector2[] fiveDice;
 
 	/// <summary>
+	/// This tells whether the roll holder is able to hold dice
+	/// </summary>
+	bool canHoldDice;
+
+	/// <summary>
+	/// This is the index of the die that is sliding back to the roll holder
+	/// </summary>
+	int dieSlidingBackIndex;
+
+	/// <summary>
 	/// When the holder is created it initializes variables
 	/// </summary>
 	void Start()
@@ -67,12 +77,13 @@ public class DiceToRoll : MonoBehaviour
 	/// </summary>
 	void Initialize()
 	{
-		diceHeld = 0;
-		diceInHolder = new bool[5];
+		diceHeld = 5;
+		diceInHolder = new bool[5] { true, true, true, true, true };
 		dieSlidingBack = new bool[5];
 		boxCollider = GetComponent<BoxCollider2D>();
-		diceIndexes = new List<int>();
+		diceIndexes = new List<int>() { 0, 1, 2, 3, 4 };
 		dieLeftHolder = false;
+		canHoldDice = true;
 	}
 
 	/// <summary>
@@ -83,6 +94,15 @@ public class DiceToRoll : MonoBehaviour
 		CheckDieMovedOutOfHolder();
 		CheckDieMovedIntoHolder();
 		CheckDieNewHolderPositions();
+	}
+
+	/// <summary>
+	/// This sets wether the die roll holder is able to hold dice
+	/// </summary>
+	/// <param name="enabled">This tells whether the roll holder is able to hold dice</param>
+	public void SetHolderEnabled(bool enabled)
+	{
+		canHoldDice = enabled;
 	}
 
 	/// <summary>
@@ -119,7 +139,7 @@ public class DiceToRoll : MonoBehaviour
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			if (!diceInHolder[i] && !dieSlidingBack[i] && !diceToRoll[i].SlidingToNewPosition() && boxCollider.bounds.Intersects(diceToRoll[i].GetDieBoxCollider().bounds))
+			if (canHoldDice && !diceInHolder[i] && !dieSlidingBack[i] && !diceToRoll[i].SlidingToNewPosition() && boxCollider.bounds.Intersects(diceToRoll[i].GetDieBoxCollider().bounds))
 			{
 				dieLeftHolder = false;
 				MoveDieIntoHolder(diceToRoll[i]);
@@ -232,6 +252,7 @@ public class DiceToRoll : MonoBehaviour
 					diceHeld++;
 					diceIndexes.Add(i);
 				}
+				dieSlidingBackIndex = i;
 				diceInHolder[i] = true;
 				break;
 			}
@@ -289,6 +310,7 @@ public class DiceToRoll : MonoBehaviour
 					diceHeld--;
 					diceIndexes.Remove(i);
 				}
+				dieSlidingBackIndex = i;
 				diceInHolder[i] = false;
 				break;
 			}
@@ -304,23 +326,6 @@ public class DiceToRoll : MonoBehaviour
 	/// </summary>
 	void OrderDice()
 	{
-
-		// This tells whether any die is sliding
-		bool anyDieSliding = false;
-
-		// This tells the index of a sliding die (-1 if there is none)
-		int slidingDieIndex = -1;
-
-		// If any die is sliding it records the index and sets anyDieSliding to true
-		for (int i = 0; i < 5; i++)
-		{
-			if (dieSlidingBack[i])
-			{
-				anyDieSliding = true;
-				slidingDieIndex = i;
-				break;
-			}
-		}
 
 		// This is the index positions of the dice
 		int[] dieIndexes = new int[] { 0, 1, 2, 3, 4 };
@@ -351,7 +356,7 @@ public class DiceToRoll : MonoBehaviour
 		}
 
 		// This sorts the diceIndexes in order of horizontal positions if the dice are in the holder
-		this.diceIndexes = new List<int>();
+		diceIndexes = new List<int>();
 		for (int i = 0; i < dieIndexes.Length; i++)
 		{
 			if (diceInHolder[dieIndexes[i]])
@@ -361,12 +366,11 @@ public class DiceToRoll : MonoBehaviour
 		}
 
 		// If the held die has left the holder and is sliding back it returns to its original position
-		if (anyDieSliding && diceToRoll[slidingDieIndex].GetDieLastRollIndex() != -1 && diceInHolder[slidingDieIndex] && dieLeftHolder)
+		if (diceToRoll[dieSlidingBackIndex].GetDieLastRollIndex() != -1 && diceInHolder[dieSlidingBackIndex] && dieLeftHolder)
 		{
 			dieLeftHolder = false;
-			this.diceIndexes.Remove(slidingDieIndex);
-			diceIndexes.Insert(diceToRoll[slidingDieIndex].GetDieLastRollIndex(), slidingDieIndex);
-			diceToRoll[slidingDieIndex].SetDieLastRollIndex(-1);
+			diceIndexes.Remove(dieSlidingBackIndex);
+			diceIndexes.Insert(diceToRoll[dieSlidingBackIndex].GetDieLastRollIndex(), dieSlidingBackIndex);
 		}
 	}
 
@@ -508,8 +512,6 @@ public class DiceToRoll : MonoBehaviour
 				{
 					diceToRoll[diceIndexes[4]].MoveDie(fiveDice[4] + transformVector2, moveDieTime);
 				}
-				break;
-			default:
 				break;
 		}
 	}
