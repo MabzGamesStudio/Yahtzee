@@ -27,9 +27,14 @@ public class RollDice : MonoBehaviour
 	int rollsLeft;
 
 	/// <summary>
-	/// The dice holder script
+	/// The dice roll holder script
 	/// </summary>
 	public DiceToRoll diceRollHolder;
+
+	/// <summary>
+	/// The dice holder script
+	/// </summary>
+	public DiceToHold diceHolder;
 
 	/// <summary>
 	/// The list of dice that are rolled once the button is clicked
@@ -75,16 +80,22 @@ public class RollDice : MonoBehaviour
 	{
 		boxCollider = GetComponent<BoxCollider2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		diceHolder.SetHolderEnabled(false);
 		rollsLeft = 3;
 	}
 
 	/// <summary>
-	/// This resets the rolls left variable and text tp three
+	/// This resets the rolls left variable and text to three and makes it so that the dice can not enter the holder
 	/// </summary>
 	public void NewTurn()
 	{
 		rollsLeft = 3;
 		rollsLeftText.SetText("Rolls Left: 3");
+		diceHolder.SetHolderEnabled(false);
+		for (int i = 0; i < dieScripts.Length; i++)
+		{
+			dieScripts[i].SetIfDieCanEnterHolder(false);
+		}
 	}
 
 	/// <summary>
@@ -144,6 +155,13 @@ public class RollDice : MonoBehaviour
 
 			// This tells the scorecard that the dice have been rolled
 			scorecard.DiceRolled();
+
+			// This tells the dice holder and dice that it is now able to hold dice
+			diceHolder.SetHolderEnabled(true);
+			for (int i = 0; i < dieScripts.Length; i++)
+			{
+				dieScripts[i].SetIfDieCanEnterHolder(true);
+			}
 
 			// This decreases the number of rolls left in this turn
 			rollsLeft--;

@@ -1358,6 +1358,7 @@ MonoBehaviour:
   - {fileID: 45062713}
   rollsLeftText: {fileID: 702654745}
   diceRollHolder: {fileID: 1640594552}
+  diceHolder: {fileID: 97311001}
   scorecard: {fileID: 1341915004}
   roll1Position: {x: 4, y: -0.5}
   roll2Position:
@@ -2585,6 +2586,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[0]
+      value: 
+      objectReference: {fileID: 657526836}
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[1]
+      value: 
+      objectReference: {fileID: 1093603185}
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[2]
+      value: 
+      objectReference: {fileID: 2145783222}
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[3]
+      value: 
+      objectReference: {fileID: 1625817318}
+    - target: {fileID: 393120083837736137, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[4]
+      value: 
+      objectReference: {fileID: 45062713}
     - target: {fileID: 1491182504852197796, guid: 84f173aeeeda7459ebda48d47e7558d9,
         type: 3}
       propertyPath: dice.Array.data[0]
@@ -2725,6 +2756,36 @@ PrefabInstance:
       propertyPath: dice.Array.data[4]
       value: 
       objectReference: {fileID: 45062713}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[0]
+      value: 
+      objectReference: {fileID: 657526836}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[1]
+      value: 
+      objectReference: {fileID: 1093603185}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[2]
+      value: 
+      objectReference: {fileID: 2145783222}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[3]
+      value: 
+      objectReference: {fileID: 1625817318}
+    - target: {fileID: 3280335432637106430, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[4]
+      value: 
+      objectReference: {fileID: 45062713}
     - target: {fileID: 3695787418730541782, guid: 84f173aeeeda7459ebda48d47e7558d9,
         type: 3}
       propertyPath: dice.Array.data[0]
@@ -2851,6 +2912,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1625817318}
     - target: {fileID: 5607560968325678827, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[4]
+      value: 
+      objectReference: {fileID: 45062713}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[0]
+      value: 
+      objectReference: {fileID: 657526836}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[1]
+      value: 
+      objectReference: {fileID: 1093603185}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[2]
+      value: 
+      objectReference: {fileID: 2145783222}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[3]
+      value: 
+      objectReference: {fileID: 1625817318}
+    - target: {fileID: 5750071961230319913, guid: 84f173aeeeda7459ebda48d47e7558d9,
         type: 3}
       propertyPath: dice.Array.data[4]
       value: 
@@ -3131,6 +3222,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1625817318}
     - target: {fileID: 7022284192145877542, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[4]
+      value: 
+      objectReference: {fileID: 45062713}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[0]
+      value: 
+      objectReference: {fileID: 657526836}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[1]
+      value: 
+      objectReference: {fileID: 1093603185}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[2]
+      value: 
+      objectReference: {fileID: 2145783222}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
+        type: 3}
+      propertyPath: dice.Array.data[3]
+      value: 
+      objectReference: {fileID: 1625817318}
+    - target: {fileID: 7751465419964600029, guid: 84f173aeeeda7459ebda48d47e7558d9,
         type: 3}
       propertyPath: dice.Array.data[4]
       value: 

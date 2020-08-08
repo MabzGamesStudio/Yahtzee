@@ -55,6 +55,11 @@ public class DiceToHold : MonoBehaviour
 	public Vector2[] fiveDice;
 
 	/// <summary>
+	/// This tells whether the holder is able to hold dice
+	/// </summary>
+	public bool canHoldDice;
+
+	/// <summary>
 	/// When the holder is created it initializes variables
 	/// </summary>
 	void Start()
@@ -101,13 +106,22 @@ public class DiceToHold : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This sets wether the die holder is able to hold dice
+	/// </summary>
+	/// <param name="enabled">This tells whether the holder is able to hold dice</param>
+	public void SetHolderEnabled(bool enabled)
+	{
+		canHoldDice = enabled;
+	}
+
+	/// <summary>
 	/// This checks to see whether a held die should be moved into the holder
 	/// </summary>
 	void CheckDieMovedIntoHolder()
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			if (!diceInHolder[i] && !dieSlidingBack[i] && !diceToHold[i].SlidingToNewPosition() && boxCollider.bounds.Intersects(diceToHold[i].GetDieBoxCollider().bounds))
+			if (canHoldDice && !diceInHolder[i] && !dieSlidingBack[i] && !diceToHold[i].SlidingToNewPosition() && boxCollider.bounds.Intersects(diceToHold[i].GetDieBoxCollider().bounds))
 			{
 				dieLeftHolder = false;
 				MoveDieIntoHolder(diceToHold[i]);
