@@ -107,6 +107,21 @@ public class ScoringColumn : MonoBehaviour
 	public void DiceRolled()
 	{
 		rollsLeft--;
+
+		// This tells the boxes that the dice have been rolled and they can be written in
+		aces.SetFirstRollDone(true);
+		twos.SetFirstRollDone(true);
+		threes.SetFirstRollDone(true);
+		fours.SetFirstRollDone(true);
+		fives.SetFirstRollDone(true);
+		sixes.SetFirstRollDone(true);
+		threeOfAKind.SetFirstRollDone(true);
+		fourOfAKind.SetFirstRollDone(true);
+		fullHouse.SetFirstRollDone(true);
+		smallStraight.SetFirstRollDone(true);
+		largeStraight.SetFirstRollDone(true);
+		yahtzee.SetFirstRollDone(true);
+		chance.SetFirstRollDone(true);
 	}
 
 	/// <summary>
@@ -139,6 +154,21 @@ public class ScoringColumn : MonoBehaviour
 		rollsLeft = 3;
 		turn++;
 		scorecard.CategorySelected();
+
+		// This tells the boxes that a new turn has been done and they can't be written in
+		aces.SetFirstRollDone(false);
+		twos.SetFirstRollDone(false);
+		threes.SetFirstRollDone(false);
+		fours.SetFirstRollDone(false);
+		fives.SetFirstRollDone(false);
+		sixes.SetFirstRollDone(false);
+		threeOfAKind.SetFirstRollDone(false);
+		fourOfAKind.SetFirstRollDone(false);
+		fullHouse.SetFirstRollDone(false);
+		smallStraight.SetFirstRollDone(false);
+		largeStraight.SetFirstRollDone(false);
+		yahtzee.SetFirstRollDone(false);
+		chance.SetFirstRollDone(false);
 	}
 
 	/// <summary>

@@ -63,6 +63,11 @@ public abstract class ScoreCardBox : MonoBehaviour
 	public ScoringColumn scoringColumn;
 
 	/// <summary>
+	/// This tells if it has been after the first roll in a turn
+	/// </summary>
+	bool afterFirstRoll;
+
+	/// <summary>
 	/// This returns the score in the box
 	/// </summary>
 	/// <returns></returns>
@@ -83,6 +88,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 		SetIfBoxSelcted(false);
 		SetIfTextGrayedOut(true);
 		boxFilledIn = false;
+		afterFirstRoll = false;
 		score = 0;
 	}
 
@@ -119,7 +125,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 				// If the box has already selected it then it picks this box's category as the move
 				if (isSelected)
 				{
-					if (ShouldBoxBeFilledIn())
+					if (afterFirstRoll && ShouldBoxBeFilledIn())
 					{
 						score = GetPoints();
 						boxFilledIn = true;
@@ -150,7 +156,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 	/// </summary>
 	protected void CheckForEnterKey()
 	{
-		if (isSelected && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ShouldBoxBeFilledIn())
+		if (afterFirstRoll && isSelected && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ShouldBoxBeFilledIn())
 		{
 			score = GetPoints();
 			boxFilledIn = true;
@@ -240,4 +246,14 @@ public abstract class ScoreCardBox : MonoBehaviour
 	{
 		return boxFilledIn;
 	}
+
+	/// <summary>
+	/// This tells whether the first roll in the turn has been done
+	/// </summary>
+	/// <param name="afterFirstRoll">Whether the first roll in the turn has been done</param>
+	public void SetFirstRollDone(bool afterFirstRoll)
+	{
+		this.afterFirstRoll = afterFirstRoll;
+	}
+
 }
