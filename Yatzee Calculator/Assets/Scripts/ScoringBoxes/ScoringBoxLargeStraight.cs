@@ -28,7 +28,7 @@ public class ScoringBoxLargeStraight : ScoreCardBox
 	/// <returns>Points in the large straight category based on the dice</returns>
 	public override int GetPoints()
 	{
-		return YahtzeeScoring.LargeStraight(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]);
+		return YahtzeeScoring.LargeStraight(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4], jokerAvailable);
 	}
 
 	/// <summary>

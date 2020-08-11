@@ -309,8 +309,31 @@ public static class YahtzeeScoring
 	/// <param name="die4">The fourth die</param>
 	/// <param name="die5">The fifth die</param>
 	/// <returns>The points awarded for the full house category</returns>
-	public static int FullHouse(int die1, int die2, int die3, int die4, int die5)
+	public static int FullHouse(int die1, int die2, int die3, int die4, int die5, bool jokerAvailable)
 	{
+
+		// If the given dice are a yahtzee and 
+		if (jokerAvailable)
+		{
+			// An array to hold the count of each number
+			int[] jokerDieNumbers = new int[6];
+
+			// Counting each number for each die based on its number category
+			jokerDieNumbers[die1 - 1]++;
+			jokerDieNumbers[die2 - 1]++;
+			jokerDieNumbers[die3 - 1]++;
+			jokerDieNumbers[die4 - 1]++;
+			jokerDieNumbers[die5 - 1]++;
+
+			// Seeing if any number category is equal to 5
+			for (int i = 0; i < 6; i++)
+			{
+				if (jokerDieNumbers[i] == 5)
+				{
+					return 25;
+				}
+			}
+		}
 
 		// An array to hold the count of each number
 		int[] dieNumbers = new int[6];
@@ -356,8 +379,32 @@ public static class YahtzeeScoring
 	/// <param name="die4">The fourth die</param>
 	/// <param name="die5">The fifth die</param>
 	/// <returns>The points awarded for the small straight category</returns>
-	public static int SmallStraight(int die1, int die2, int die3, int die4, int die5)
+	public static int SmallStraight(int die1, int die2, int die3, int die4, int die5, bool jokerAvailable)
 	{
+
+		// If the given dice are a yahtzee and 
+		if (jokerAvailable)
+		{
+			// An array to hold the count of each number
+			int[] dieNumbers = new int[6];
+
+			// Counting each number for each die based on its number category
+			dieNumbers[die1 - 1]++;
+			dieNumbers[die2 - 1]++;
+			dieNumbers[die3 - 1]++;
+			dieNumbers[die4 - 1]++;
+			dieNumbers[die5 - 1]++;
+
+			// Seeing if any number category is equal to 5
+			for (int i = 0; i < 6; i++)
+			{
+				if (dieNumbers[i] == 5)
+				{
+					return 30;
+				}
+			}
+		}
+
 		int[] diceArray = new int[] { die1, die2, die3, die4, die5 };
 		if (ArrayContainsValue(diceArray, 3) && ArrayContainsValue(diceArray, 4) && ((ArrayContainsValue(diceArray, 1) && ArrayContainsValue(diceArray, 2)) || (ArrayContainsValue(diceArray, 2) && ArrayContainsValue(diceArray, 5)) || (ArrayContainsValue(diceArray, 5) && ArrayContainsValue(diceArray, 6))))
 		{
@@ -375,8 +422,32 @@ public static class YahtzeeScoring
 	/// <param name="die4">The fourth die</param>
 	/// <param name="die5">The fifth die</param>
 	/// <returns>The points awarded for the large straight category</returns>
-	public static int LargeStraight(int die1, int die2, int die3, int die4, int die5)
+	public static int LargeStraight(int die1, int die2, int die3, int die4, int die5, bool jokerAvailable)
 	{
+
+		// If the given dice are a yahtzee and 
+		if (jokerAvailable)
+		{
+			// An array to hold the count of each number
+			int[] dieNumbers = new int[6];
+
+			// Counting each number for each die based on its number category
+			dieNumbers[die1 - 1]++;
+			dieNumbers[die2 - 1]++;
+			dieNumbers[die3 - 1]++;
+			dieNumbers[die4 - 1]++;
+			dieNumbers[die5 - 1]++;
+
+			// Seeing if any number category is equal to 5
+			for (int i = 0; i < 6; i++)
+			{
+				if (dieNumbers[i] == 5)
+				{
+					return 40;
+				}
+			}
+		}
+
 		int[] diceArray = new int[] { die1, die2, die3, die4, die5 };
 		if (ArrayContainsValue(diceArray, 2) && ArrayContainsValue(diceArray, 3) && ArrayContainsValue(diceArray, 4) && ArrayContainsValue(diceArray, 5) && (ArrayContainsValue(diceArray, 1) || ArrayContainsValue(diceArray, 6)))
 		{

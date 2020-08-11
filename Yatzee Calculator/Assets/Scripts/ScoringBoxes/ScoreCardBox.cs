@@ -68,6 +68,11 @@ public abstract class ScoreCardBox : MonoBehaviour
 	bool afterFirstRoll;
 
 	/// <summary>
+	/// This tells wether the yahtzee box has been filled out yet and so a yahtzee joker would be available
+	/// </summary>
+	protected bool jokerAvailable;
+
+	/// <summary>
 	/// This returns the score in the box
 	/// </summary>
 	/// <returns></returns>
@@ -89,6 +94,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 		SetIfTextGrayedOut(true);
 		boxFilledIn = false;
 		afterFirstRoll = false;
+		jokerAvailable = false;
 		score = 0;
 	}
 
@@ -127,13 +133,8 @@ public abstract class ScoreCardBox : MonoBehaviour
 				{
 					if (!boxFilledIn && afterFirstRoll && ShouldBoxBeFilledIn())
 					{
-						score = GetPoints();
-						boxFilledIn = true;
-						SetIfTextGrayedOut(false);
-						SetIfBoxSelcted(false);
-						scoringColumn.NewTurn();
+						CategorySelected();
 					}
-
 				}
 
 				// If the box is not selected and clicked the it becomes selected
@@ -158,12 +159,24 @@ public abstract class ScoreCardBox : MonoBehaviour
 	{
 		if (afterFirstRoll && !boxFilledIn && isSelected && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ShouldBoxBeFilledIn())
 		{
+			CategorySelected();
+		}
+	}
+
+	/// <summary>
+	/// This updates and fills in the category and starts a new turn
+	/// </summary>
+	protected virtual void CategorySelected()
+	{
+		if (!JokerForcedAway(this))
+		{
 			score = GetPoints();
 			boxFilledIn = true;
 			SetIfTextGrayedOut(false);
 			SetIfBoxSelcted(false);
 			scoringColumn.NewTurn();
 		}
+
 	}
 
 	/// <summary>
@@ -183,10 +196,28 @@ public abstract class ScoreCardBox : MonoBehaviour
 	/// </summary>
 	protected virtual void UpdateInformation()
 	{
+
+		// This tells the box to hide text if there is a joker in play and this box is not available
+		if (afterFirstRoll && JokerForcedAway(this) && !boxFilledIn && !(this is ScoringBoxBonus) && !(this is ScoringBoxTopTotal) && !(this is ScoringBoxBottomTotal) && !(this is ScoringBoxGrandTotal) && !(this is ScoringBoxYahtzeeBonus))
+		{
+			HideText();
+		}
+
+		// This updates the dice numbers and sets the text to the points based on the dice and scorecard
 		if (!boxFilledIn)
 		{
 			UpdateDiceNumbers();
 			textMeshPro.SetText(GetPoints().ToString());
+		}
+
+		// This tells the scorecard column to not show boxes if there is a joker in play
+		if (jokerAvailable && afterFirstRoll && YahtzeeScoring.Yahtzee(dice[0].number, dice[1].number, dice[2].number, dice[3].number, dice[4].number) == 50)
+		{
+			scoringColumn.SetForcedJoker(true);
+		}
+		else
+		{
+			scoringColumn.SetForcedJoker(false);
 		}
 	}
 
@@ -254,6 +285,82 @@ public abstract class ScoreCardBox : MonoBehaviour
 	public void SetFirstRollDone(bool afterFirstRoll)
 	{
 		this.afterFirstRoll = afterFirstRoll;
+	}
+
+	/// <summary>
+	/// This tells the box that the joker is available to play in the game
+	/// </summary>
+	public void JokerNowAvailable()
+	{
+		jokerAvailable = true;
+	}
+
+	/// <summary>
+	/// This tells if a joker is forcing another category to be played 
+	/// </summary>
+	/// <param name="scoreCardBox">The ScoreCardBox object of the category to be decided if it cannot be played</param>
+	/// <returns></returns>
+	protected bool JokerForcedAway(ScoreCardBox scoreCardBox)
+	{
+
+		// If the joker is available and the dice rolled is a yahtzee
+		if (jokerAvailable && YahtzeeScoring.Yahtzee(dice[0].number, dice[1].number, dice[2].number, dice[3].number, dice[4].number) == 50)
+		{
+
+			// If there is a joker that has a number in the top section that is not filled in then it says that only the category of that number can be filled in
+			switch (dice[0].number)
+			{
+				case 1:
+					if (!scoringColumn.aces.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxAces);
+					}
+					break;
+				case 2:
+					if (!scoringColumn.twos.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxTwos);
+					}
+					break;
+				case 3:
+					if (!scoringColumn.threes.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxThrees);
+					}
+					break;
+				case 4:
+					if (!scoringColumn.fours.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxFours);
+					}
+					break;
+				case 5:
+					if (!scoringColumn.fives.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxFives);
+					}
+					break;
+				case 6:
+					if (!scoringColumn.sixes.IsBoxFilledIn())
+					{
+						return !(scoreCardBox is ScoringBoxSixes);
+					}
+					break;
+			}
+
+			// If there is an open section in the bottom then the only open spots are in the bottom section
+			if (!scoringColumn.threeOfAKind.IsBoxFilledIn() || !scoringColumn.fourOfAKind.IsBoxFilledIn() || !scoringColumn.fullHouse.IsBoxFilledIn() || !scoringColumn.smallStraight.IsBoxFilledIn() || !scoringColumn.largeStraight.IsBoxFilledIn() || !scoringColumn.chance.IsBoxFilledIn())
+			{
+				return !(scoreCardBox is ScoringBoxThreeOfAKind || scoreCardBox is ScoringBoxFourOfAKind || scoreCardBox is ScoringBoxFullHouse || scoreCardBox is ScoringBoxSmallStraight || scoreCardBox is ScoringBoxLargeStraight || scoreCardBox is ScoringBoxChance);
+			}
+
+			// If the only option left is to put the joker in the top section for 0 then any spot is available
+			return false;
+
+		}
+
+		// If it is not a joker then no spot is forced
+		return false;
 	}
 
 }

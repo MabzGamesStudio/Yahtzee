@@ -535,6 +535,21 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212821838275787076, guid: c2bf16519a233e64798653e06049dd08,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212821838275787076, guid: c2bf16519a233e64798653e06049dd08,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212821838275787076, guid: c2bf16519a233e64798653e06049dd08,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224717653294505452, guid: c2bf16519a233e64798653e06049dd08,
         type: 3}
       propertyPath: m_SizeDelta.x

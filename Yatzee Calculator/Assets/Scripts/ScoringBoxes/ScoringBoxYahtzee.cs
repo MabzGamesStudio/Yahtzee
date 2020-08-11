@@ -22,6 +22,12 @@ public class ScoringBoxYahtzee : ScoreCardBox
 		return true;
 	}
 
+	protected override void CategorySelected()
+	{
+		base.CategorySelected();
+		scoringColumn.JokerAvailableToColumn();
+	}
+
 	/// <summary>
 	/// This uses the yahtzee scoring class to tell the points in this box's category
 	/// </summary>

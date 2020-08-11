@@ -16,6 +16,11 @@ public class ScoringColumn : MonoBehaviour
 	int rollsLeft;
 
 	/// <summary>
+	/// This tells if there is a forced joker to be played in the column
+	/// </summary>
+	bool forcedJoker;
+
+	/// <summary>
 	/// These are all of the boxes in this column
 	/// </summary>
 	public ScoringBoxAces aces;
@@ -101,6 +106,28 @@ public class ScoringColumn : MonoBehaviour
 		}
 	}
 
+	public void JokerAvailableToColumn()
+	{
+		aces.JokerNowAvailable();
+		twos.JokerNowAvailable();
+		threes.JokerNowAvailable();
+		fours.JokerNowAvailable();
+		fives.JokerNowAvailable();
+		sixes.JokerNowAvailable();
+		bonus.JokerNowAvailable();
+		threeOfAKind.JokerNowAvailable();
+		fourOfAKind.JokerNowAvailable();
+		fullHouse.JokerNowAvailable();
+		smallStraight.JokerNowAvailable();
+		largeStraight.JokerNowAvailable();
+		yahtzee.JokerNowAvailable();
+		yahtzeeBonus.JokerNowAvailable();
+		chance.JokerNowAvailable();
+		topTotal.JokerNowAvailable();
+		bottomTotal.JokerNowAvailable();
+		grandTotal.JokerNowAvailable();
+	}
+
 	/// <summary>
 	/// This decrements the rolls left
 	/// </summary>
@@ -115,13 +142,18 @@ public class ScoringColumn : MonoBehaviour
 		fours.SetFirstRollDone(true);
 		fives.SetFirstRollDone(true);
 		sixes.SetFirstRollDone(true);
+		bonus.SetFirstRollDone(true);
 		threeOfAKind.SetFirstRollDone(true);
 		fourOfAKind.SetFirstRollDone(true);
 		fullHouse.SetFirstRollDone(true);
 		smallStraight.SetFirstRollDone(true);
 		largeStraight.SetFirstRollDone(true);
 		yahtzee.SetFirstRollDone(true);
+		yahtzeeBonus.SetFirstRollDone(true);
 		chance.SetFirstRollDone(true);
+		topTotal.SetFirstRollDone(true);
+		bottomTotal.SetFirstRollDone(true);
+		grandTotal.SetFirstRollDone(true);
 	}
 
 	/// <summary>
@@ -141,7 +173,7 @@ public class ScoringColumn : MonoBehaviour
 		smallStraight.ShowText();
 		largeStraight.ShowText();
 		yahtzee.ShowText();
-		yahtzee.ShowText();
+		yahtzeeBonus.ShowText();
 		chance.ShowText();
 	}
 
@@ -170,6 +202,8 @@ public class ScoringColumn : MonoBehaviour
 		largeStraight.SetFirstRollDone(false);
 		yahtzee.SetFirstRollDone(false);
 		chance.SetFirstRollDone(false);
+
+		// This tells the yahtzee bonus that a new turn has been made
 		yahtzeeBonus.SetNewTurn(true);
 	}
 
@@ -188,6 +222,16 @@ public class ScoringColumn : MonoBehaviour
 	{
 		turn = 1;
 		rollsLeft = 3;
+		forcedJoker = false;
+	}
+
+	/// <summary>
+	/// This tells the column whether there is a forced joker in play
+	/// </summary>
+	/// <param name="isForcedJoker">Whether there is a forced joker</param>
+	public void SetForcedJoker(bool isForcedJoker)
+	{
+		forcedJoker = isForcedJoker;
 	}
 
 	/// <summary>
@@ -195,13 +239,17 @@ public class ScoringColumn : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
-		if (rollsLeft != 3)
+		if (!forcedJoker)
 		{
-			ShowGrayedOutScores();
-		}
-		else
-		{
-			HideGrayedOutScores();
+			if (rollsLeft != 3)
+			{
+				ShowGrayedOutScores();
+			}
+			else
+			{
+				HideGrayedOutScores();
+			}
 		}
 	}
+
 }

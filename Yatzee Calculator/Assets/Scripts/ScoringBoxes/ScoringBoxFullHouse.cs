@@ -28,7 +28,7 @@ public class ScoringBoxFullHouse : ScoreCardBox
 	/// <returns>Points in the full house category based on the dice</returns>
 	public override int GetPoints()
 	{
-		return YahtzeeScoring.FullHouse(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]);
+		return YahtzeeScoring.FullHouse(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4], jokerAvailable);
 	}
 
 	/// <summary>

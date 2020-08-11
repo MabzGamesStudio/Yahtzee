@@ -28,7 +28,6 @@ public class ScoringBoxChance : ScoreCardBox
 	/// <returns>Points in the chance category based on the dice</returns>
 	public override int GetPoints()
 	{
-		UpdateDiceNumbers();
 		return YahtzeeScoring.Chance(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]);
 	}
 

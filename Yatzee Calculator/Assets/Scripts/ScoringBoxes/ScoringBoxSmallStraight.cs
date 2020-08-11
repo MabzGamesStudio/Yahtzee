@@ -28,7 +28,7 @@ public class ScoringBoxSmallStraight : ScoreCardBox
 	/// <returns>Points in the small straight category based on the dice</returns>
 	public override int GetPoints()
 	{
-		return YahtzeeScoring.SmallStraight(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4]);
+		return YahtzeeScoring.SmallStraight(diceNumbers[0], diceNumbers[1], diceNumbers[2], diceNumbers[3], diceNumbers[4], jokerAvailable);
 	}
 
 	/// <summary>
