@@ -17,6 +17,11 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 	bool newTurn;
 
 	/// <summary>
+	/// This tells the yahtzee bonus that 
+	/// </summary>
+	bool justRolledFirstYahtzee;
+
+	/// <summary>
 	/// When the box is created it initializes variables
 	/// </summary>
 	void Start()
@@ -39,6 +44,7 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 	{
 		base.Initialize();
 		newTurn = false;
+		justRolledFirstYahtzee = true;
 	}
 
 	/// <summary>
@@ -73,9 +79,19 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 			}
 
 			// The box gets updated based on the dice and score if it does not get filled in
-			else
+			else if (newTurn)
 			{
-				textMeshPro.SetText(GetPoints().ToString());
+				if (!justRolledFirstYahtzee)
+				{
+					score = GetPoints();
+
+				}
+				else
+				{
+					justRolledFirstYahtzee = false;
+				}
+				newTurn = false;
+				textMeshPro.SetText(score.ToString());
 			}
 		}
 	}
@@ -106,5 +122,14 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 		UpdateInformation();
 		CheckForEnterKey();
 		CheckForMouseClick();
+	}
+
+	/// <summary>
+	/// This sets the newTurn variable to the given bool
+	/// </summary>
+	/// <param name="isNewTurn">Whether it is a new turn</param>
+	public void SetNewTurn(bool isNewTurn)
+	{
+		newTurn = isNewTurn;
 	}
 }

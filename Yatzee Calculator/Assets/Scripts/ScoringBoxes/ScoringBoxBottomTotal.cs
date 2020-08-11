@@ -14,6 +14,7 @@ public class ScoringBoxBottomTotal : ScoreCardBox
 	public ScoringBoxSmallStraight smallStraight;
 	public ScoringBoxLargeStraight largeStraight;
 	public ScoringBoxYahtzee yahtzee;
+	public ScoringBoxYahtzeeBonus yahtzeeBonus;
 	public ScoringBoxChance chance;
 
 	/// <summary>
@@ -56,7 +57,7 @@ public class ScoringBoxBottomTotal : ScoreCardBox
 	/// <returns>Points in the bottom total category based on the bottom section</returns>
 	public override int GetPoints()
 	{
-		return YahtzeeScoring.BottomTotal(threeOfAKind.GetScore(), fourOfAKind.GetScore(), fullHouse.GetScore(), smallStraight.GetScore(), largeStraight.GetScore(), yahtzee.GetScore(), chance.GetScore());
+		return YahtzeeScoring.BottomTotal(threeOfAKind.GetScore(), fourOfAKind.GetScore(), fullHouse.GetScore(), smallStraight.GetScore(), largeStraight.GetScore(), yahtzee.GetScore(), yahtzeeBonus.GetScore(), chance.GetScore());
 	}
 
 	/// <summary>

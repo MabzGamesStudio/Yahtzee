@@ -515,11 +515,12 @@ public static class YahtzeeScoring
 	/// <param name="smallStraightPoints">The points in the small straight category</param>
 	/// <param name="largeStraightPoints">The points in the large straight category</param>
 	/// <param name="yahtzeePoints">The points in the yahtzee category</param>
+	/// /// <param name="yahtzeeBonusPoints">The points in the yahtzee bonus category</param>
 	/// <param name="chancePoints">The points in the chance category</param>
 	/// <returns>The total of the bottom section of the scorecard</returns>
-	public static int BottomTotal(int threeOfAKindPoints, int fourOfAKindPoints, int fullHousePoints, int smallStraightPoints, int largeStraightPoints, int yahtzeePoints, int chancePoints)
+	public static int BottomTotal(int threeOfAKindPoints, int fourOfAKindPoints, int fullHousePoints, int smallStraightPoints, int largeStraightPoints, int yahtzeePoints, int yahtzeeBonusPoints, int chancePoints)
 	{
-		return threeOfAKindPoints + fourOfAKindPoints + fullHousePoints + smallStraightPoints + largeStraightPoints + yahtzeePoints + chancePoints;
+		return threeOfAKindPoints + fourOfAKindPoints + fullHousePoints + smallStraightPoints + largeStraightPoints + yahtzeePoints + yahtzeeBonusPoints + chancePoints;
 	}
 
 	/// <summary>

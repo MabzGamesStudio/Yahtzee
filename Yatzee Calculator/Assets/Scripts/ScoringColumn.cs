@@ -169,6 +169,7 @@ public class ScoringColumn : MonoBehaviour
 		largeStraight.SetFirstRollDone(false);
 		yahtzee.SetFirstRollDone(false);
 		chance.SetFirstRollDone(false);
+		yahtzeeBonus.SetNewTurn(true);
 	}
 
 	/// <summary>
