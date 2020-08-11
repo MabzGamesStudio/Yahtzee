@@ -90,23 +90,51 @@ public class RollDice : MonoBehaviour
 	public void NewTurn()
 	{
 
-		// The rolls left number and text is updated to 3
-		rollsLeft = 3;
-		rollsLeftText.SetText("Rolls Left: 3");
-
-		// The holder for the dice is not enabled
+		// Dice move into the roll holder and are not allowed to enter the holder
 		diceHolder.SetHolderEnabled(false);
+
+		// This orders the dice based on their x position
+		dieScripts = OrderDice(dieScripts);
+
+		// This tells the dice and their holders that they need to enter the roll holder and can't enter the hold holder
 		for (int i = 0; i < dieScripts.Length; i++)
 		{
 			dieScripts[i].SetIfDieCanEnterHolder(false);
+			dieScripts[i].SetIfDieCanEnterRollHolder(true);
+			diceHolder.MoveDieOutOfHolder(dieScripts[i]);
+			dieScripts[i].MoveDieOutOfHolder();
+			dieScripts[i].MoveDieIntoRollHolder();
+			dieScripts[i].SetDieLastRollIndex(i);
 		}
 
-		// The roll holder for the dice becomes enabled
-		diceRollHolder.SetHolderEnabled(true);
-		for (int i = 0; i < dieScripts.Length; i++)
+		// This physically moves the dice into the roll holder
+		diceRollHolder.MoveAllDiceIntoHolder(dieScripts);
+
+		// The rolls left number and text is updated to 3
+		rollsLeft = 3;
+		rollsLeftText.SetText("Rolls Left: 3");
+	}
+
+	/// <summary>
+	/// This orders the given dice based on x position
+	/// </summary>
+	/// <param name="unorderedDice">The list of dice to be sorted</param>
+	/// <returns>The ordered dice array based on x position</returns>
+	Die[] OrderDice(Die[] unorderedDice)
+	{
+		for (int i = 0; i < unorderedDice.Length; i++)
 		{
-			dieScripts[i].SetIfDieCanEnterRollHolder(true);
+			for (int j = 0; j < unorderedDice.Length - 1 - i; j++)
+			{
+				if (unorderedDice[j].transform.localPosition.x > unorderedDice[j + 1].transform.localPosition.x)
+				{
+					Die temp = unorderedDice[j];
+					unorderedDice[j] = unorderedDice[j + 1];
+					unorderedDice[j + 1] = temp;
+				}
+			}
 		}
+		return unorderedDice;
 	}
 
 	/// <summary>
@@ -196,8 +224,8 @@ public class RollDice : MonoBehaviour
 			{
 				diceToRoll[i].RollDie();
 				diceToRoll[i].MoveDieOutOfRollHolder();
-				diceRollHolder.EmptyHolder();
 			}
+			diceRollHolder.EmptyHolder();
 
 			// This shuffles the order of the dice
 			diceToRoll = ShuffleDice(diceToRoll);

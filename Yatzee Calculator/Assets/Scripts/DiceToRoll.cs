@@ -125,11 +125,11 @@ public class DiceToRoll : MonoBehaviour
 	/// </summary>
 	public void EmptyHolder()
 	{
+		diceHeld = 0;
 		for (int i = 0; i < 5; i++)
 		{
 			diceInHolder[i] = false;
 		}
-		diceHeld = 0;
 	}
 
 	/// <summary>
@@ -264,6 +264,41 @@ public class DiceToRoll : MonoBehaviour
 	}
 
 	/// <summary>
+	/// This moves all dice of the given die script into the holder
+	/// </summary>
+	/// <param name="die">The die script list of the die to be put in the holder</param>
+	public void MoveAllDiceIntoHolder(Die[] dice)
+	{
+
+		// This resets the dice indexes list
+		diceIndexes = new List<int>();
+
+		// This sets the dice held to the number of dice
+		diceHeld = dice.Length;
+
+		// This sets variables telling the dice that they are in the holder
+		for (int i = 0; i < dice.Length; i++)
+		{
+
+			// This sorts the dice indexes based on the given dice order
+			for (int j = 0; j < dice.Length; j++)
+			{
+				if (diceToRoll[j] == dice[i])
+				{
+					diceIndexes.Add(j);
+				}
+			}
+
+			// This sets the dice variables to sliding and in the holder
+			diceInHolder[i] = true;
+			dieSlidingBack[i] = true;
+		}
+
+		// All the dice in the holder are ordered and physically moved to the spots they need to go
+		MoveDiceInHolder();
+	}
+
+	/// <summary>
 	/// This sets the information that tells that a die has started sliding
 	/// </summary>
 	/// <param name="die">The die script of the die that is sliding</param>
@@ -380,17 +415,6 @@ public class DiceToRoll : MonoBehaviour
 	/// <returns>A list of the die indexes in the order they should be in horizontally</returns>
 	List<int> GetOrderedDice()
 	{
-
-		// This is the index of a die that is being held
-		int slidingDieIndex = -1;
-		for (int i = 0; i < 5; i++)
-		{
-			if (dieSlidingBack[i])
-			{
-				slidingDieIndex = i;
-				break;
-			}
-		}
 
 		// This is the index positions of the dice
 		List<int> dieIndexes = new List<int> { 0, 1, 2, 3, 4 };

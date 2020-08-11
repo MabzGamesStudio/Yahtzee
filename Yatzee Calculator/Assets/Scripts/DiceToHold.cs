@@ -270,7 +270,7 @@ public class DiceToHold : MonoBehaviour
 	/// This moves the die of the given die script out of the holder
 	/// </summary>
 	/// <param name="die">The die script of the die to be put in the holder</param>
-	void MoveDieOutOfHolder(Die die)
+	public void MoveDieOutOfHolder(Die die)
 	{
 		for (int i = 0; i < 5; i++)
 		{

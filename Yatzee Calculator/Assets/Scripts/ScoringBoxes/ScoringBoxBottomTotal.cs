@@ -33,6 +33,7 @@ public class ScoringBoxBottomTotal : ScoreCardBox
 		// If the bottom section boxes are filled it fills in the box and sets the score for the box
 		if (threeOfAKind.IsBoxFilledIn() && fourOfAKind.IsBoxFilledIn() && fullHouse.IsBoxFilledIn() && smallStraight.IsBoxFilledIn() && largeStraight.IsBoxFilledIn() && yahtzee.IsBoxFilledIn() && chance.IsBoxFilledIn())
 		{
+			UpdateInformation();
 			score = GetPoints();
 			boxFilledIn = true;
 			SetIfTextGrayedOut(false);

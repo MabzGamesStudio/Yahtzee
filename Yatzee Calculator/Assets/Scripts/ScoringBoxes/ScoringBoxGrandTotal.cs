@@ -28,6 +28,7 @@ public class ScoringBoxGrandTotal : ScoreCardBox
 		// If both the top and bottom section boxes are filled it fills in the box and sets the score for the box
 		if (topTotal.IsBoxFilledIn() && bottomTotal.IsBoxFilledIn())
 		{
+			UpdateInformation();
 			score = GetPoints();
 			boxFilledIn = true;
 			SetIfTextGrayedOut(false);

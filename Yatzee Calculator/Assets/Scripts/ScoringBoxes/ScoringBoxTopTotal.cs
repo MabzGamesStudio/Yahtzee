@@ -33,6 +33,7 @@ public class ScoringBoxTopTotal : ScoreCardBox
 		// If all the top section boxes are filled it fills in the box and sets the score for the box
 		if (bonus.IsBoxFilledIn())
 		{
+			UpdateInformation();
 			score = GetPoints();
 			boxFilledIn = true;
 			SetIfTextGrayedOut(false);

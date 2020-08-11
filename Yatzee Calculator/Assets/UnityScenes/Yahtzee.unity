@@ -2454,6 +2454,11 @@ PrefabInstance:
       propertyPath: diceToRoll.Array.data[4]
       value: 
       objectReference: {fileID: 45062713}
+    - target: {fileID: 114290867760896794, guid: b908a7c86f54e1a4e832cd14a3e69486,
+        type: 3}
+      propertyPath: moveDieTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 114844206976324184, guid: b908a7c86f54e1a4e832cd14a3e69486,
         type: 3}
       propertyPath: m_havePropertiesChanged
