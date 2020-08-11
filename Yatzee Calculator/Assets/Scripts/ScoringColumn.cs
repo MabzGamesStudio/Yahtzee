@@ -8,7 +8,7 @@ public class ScoringColumn : MonoBehaviour
 	/// <summary>
 	/// This tells the turn that this column is on (1-13)
 	/// </summary>
-	int turn;
+	bool turnReady;
 
 	/// <summary>
 	/// This tells how many rolls there are left in this turn
@@ -19,6 +19,11 @@ public class ScoringColumn : MonoBehaviour
 	/// This tells if there is a forced joker to be played in the column
 	/// </summary>
 	bool forcedJoker;
+
+	/// <summary>
+	/// This tells if the column this is playable
+	/// </summary>
+	protected bool columnPlayable;
 
 	/// <summary>
 	/// These are all of the boxes in this column
@@ -185,8 +190,7 @@ public class ScoringColumn : MonoBehaviour
 
 		// This sets the rolls to 3, increases the turn count, and tells the scorecard that a category was selected
 		rollsLeft = 3;
-		turn++;
-		scorecard.CategorySelected();
+		turnReady = true;
 
 		// This tells the boxes that a new turn has been done and they can't be written in
 		aces.SetFirstRollDone(false);
@@ -220,7 +224,6 @@ public class ScoringColumn : MonoBehaviour
 	/// </summary>
 	void Initialize()
 	{
-		turn = 1;
 		rollsLeft = 3;
 		forcedJoker = false;
 	}
@@ -241,7 +244,7 @@ public class ScoringColumn : MonoBehaviour
 	{
 		if (!forcedJoker)
 		{
-			if (rollsLeft != 3)
+			if (rollsLeft != 3 && turnReady)
 			{
 				ShowGrayedOutScores();
 			}
@@ -250,6 +253,43 @@ public class ScoringColumn : MonoBehaviour
 				HideGrayedOutScores();
 			}
 		}
+	}
+
+	/// <summary>
+	/// This tells this column if it is their turn to play
+	/// </summary>
+	/// <param name="isTurnReady"></param>
+	public void SetIfTurnReady(bool isTurnReady)
+	{
+		turnReady = isTurnReady;
+
+		// This tells each of the boxes whether it is playable
+		aces.SetIfColumnPlayable(isTurnReady);
+		twos.SetIfColumnPlayable(isTurnReady);
+		threes.SetIfColumnPlayable(isTurnReady);
+		fours.SetIfColumnPlayable(isTurnReady);
+		fives.SetIfColumnPlayable(isTurnReady);
+		sixes.SetIfColumnPlayable(isTurnReady);
+		bonus.SetIfColumnPlayable(isTurnReady);
+		threeOfAKind.SetIfColumnPlayable(isTurnReady);
+		fourOfAKind.SetIfColumnPlayable(isTurnReady);
+		fullHouse.SetIfColumnPlayable(isTurnReady);
+		smallStraight.SetIfColumnPlayable(isTurnReady);
+		largeStraight.SetIfColumnPlayable(isTurnReady);
+		yahtzee.SetIfColumnPlayable(isTurnReady);
+		yahtzeeBonus.SetIfColumnPlayable(isTurnReady);
+		chance.SetIfColumnPlayable(isTurnReady);
+		topTotal.SetIfColumnPlayable(isTurnReady);
+		bottomTotal.SetIfColumnPlayable(isTurnReady);
+		grandTotal.SetIfColumnPlayable(isTurnReady);
+	}
+
+	/// <summary>
+	/// This tells the scorecard that a category has been selected
+	/// </summary>
+	public void CategorySelected()
+	{
+		scorecard.CategorySelected();
 	}
 
 }

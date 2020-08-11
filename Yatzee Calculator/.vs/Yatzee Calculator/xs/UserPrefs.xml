@@ -1,8 +1,5 @@
 ﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ScoringBoxes/ScoreCardBox.cs">
-    <Files>
-      <File FileName="Assets/Scripts/ScoringBoxes/ScoreCardBox.cs" Line="219" Column="4" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -10,9 +7,8 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Die" expanded="True" />
-                <Node name="ScoringBoxes" expanded="True">
-                  <Node name="ScoreCardBox.cs" selected="True" />
-                </Node>
+                <Node name="ScoringBoxes" expanded="True" />
+                <Node name="Scorecard.cs" selected="True" />
               </Node>
             </Node>
           </Node>

@@ -73,6 +73,11 @@ public abstract class ScoreCardBox : MonoBehaviour
 	protected bool jokerAvailable;
 
 	/// <summary>
+	/// This tells if the column this box is in is playable
+	/// </summary>
+	protected bool columnPlayable;
+
+	/// <summary>
 	/// This returns the score in the box
 	/// </summary>
 	/// <returns></returns>
@@ -168,13 +173,13 @@ public abstract class ScoreCardBox : MonoBehaviour
 	/// </summary>
 	protected virtual void CategorySelected()
 	{
-		if (!JokerForcedAway(this))
+		if (!JokerForcedAway(this) && columnPlayable)
 		{
 			score = GetPoints();
 			boxFilledIn = true;
 			SetIfTextGrayedOut(false);
 			SetIfBoxSelcted(false);
-			scoringColumn.NewTurn();
+			scoringColumn.CategorySelected();
 		}
 
 	}
@@ -361,6 +366,15 @@ public abstract class ScoreCardBox : MonoBehaviour
 
 		// If it is not a joker then no spot is forced
 		return false;
+	}
+
+	/// <summary>
+	/// This tells this box whether the column it is in is playable or not
+	/// </summary>
+	/// <param name="isColumnPlayable">Whether the column is playable</param>
+	public void SetIfColumnPlayable(bool isColumnPlayable)
+	{
+		columnPlayable = isColumnPlayable;
 	}
 
 }
