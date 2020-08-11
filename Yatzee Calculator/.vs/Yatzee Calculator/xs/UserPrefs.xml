@@ -1,5 +1,8 @@
 ﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Scorecard.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Scorecard.cs" Line="61" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
