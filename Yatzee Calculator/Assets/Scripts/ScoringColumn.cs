@@ -141,6 +141,7 @@ public class ScoringColumn : MonoBehaviour
 		smallStraight.ShowText();
 		largeStraight.ShowText();
 		yahtzee.ShowText();
+		yahtzee.ShowText();
 		chance.ShowText();
 	}
 

@@ -43,6 +43,7 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 	protected new void Initialize()
 	{
 		base.Initialize();
+
 		newTurn = false;
 		justRolledFirstYahtzee = true;
 	}
@@ -91,8 +92,8 @@ public class ScoringBoxYahtzeeBonus : ScoreCardBox
 					justRolledFirstYahtzee = false;
 				}
 				newTurn = false;
-				textMeshPro.SetText(score.ToString());
 			}
+			textMeshPro.SetText(score.ToString());
 		}
 	}
 

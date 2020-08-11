@@ -125,7 +125,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 				// If the box has already selected it then it picks this box's category as the move
 				if (isSelected)
 				{
-					if (afterFirstRoll && ShouldBoxBeFilledIn())
+					if (!boxFilledIn && afterFirstRoll && ShouldBoxBeFilledIn())
 					{
 						score = GetPoints();
 						boxFilledIn = true;
@@ -156,7 +156,7 @@ public abstract class ScoreCardBox : MonoBehaviour
 	/// </summary>
 	protected void CheckForEnterKey()
 	{
-		if (afterFirstRoll && isSelected && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ShouldBoxBeFilledIn())
+		if (afterFirstRoll && !boxFilledIn && isSelected && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && ShouldBoxBeFilledIn())
 		{
 			score = GetPoints();
 			boxFilledIn = true;
