@@ -63,12 +63,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AITesting.cs" />
+    <Compile Include="Assets\Scripts\CustomFloat.cs" />
     <Compile Include="Assets\Scripts\DiceToHold.cs" />
     <Compile Include="Assets\Scripts\DiceToRoll.cs" />
     <Compile Include="Assets\Scripts\Die\Die.cs" />
     <Compile Include="Assets\Scripts\Die\DieEditor.cs" />
+    <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\RollDice.cs" />
     <Compile Include="Assets\Scripts\Scorecard.cs" />
+    <Compile Include="Assets\Scripts\ScorecardState.cs" />
     <Compile Include="Assets\Scripts\ScoringBoxes\ScoreCardBox.cs" />
     <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxAces.cs" />
     <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxBonus.cs" />
@@ -89,6 +93,7 @@
     <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzee.cs" />
     <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzeeBonus.cs" />
     <Compile Include="Assets\Scripts\ScoringColumn.cs" />
+    <Compile Include="Assets\Scripts\YahtzeeMaximizeAlgorithm.cs" />
     <Compile Include="Assets\Scripts\YahtzeeScoring.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
