@@ -89,7 +89,7 @@ public class CustomFloat
 		}
 
 		// If only a decimal needs to be placed in the middle it does so
-		else
+		else if (significantDigits > 1)
 		{
 			normalFormat = normalFormat.Substring(0, magnitude + 1) + "." + normalFormat.Substring(magnitude + 1);
 		}
@@ -114,6 +114,7 @@ public class CustomFloat
 	/// </summary>
 	/// <param name="number1">The first number to add</param>
 	/// <param name="number2">The second number to add</param>
+	/// /// <param name="significantDigits">The significant digits to be used in the result</param>
 	/// <returns>The sum of the two CustomFloats</returns>
 	public static CustomFloat Add(CustomFloat number1, CustomFloat number2, int significantDigits)
 	{
@@ -271,6 +272,12 @@ public class CustomFloat
 	public static CustomFloat Subtract(CustomFloat number1, CustomFloat number2, int significantDigits)
 	{
 
+		// If the numbers are the same then it returns a CustomFloat with a value of 0
+		if (number1.GetFloatNormal().Equals(number2.GetFloatNormal()))
+		{
+			return new CustomFloat("0", significantDigits);
+		}
+
 		// These are the string values of the CustomFloat numbers
 		string number1Float = number1.GetFloat();
 		string number2Float = number2.GetFloat();
@@ -353,8 +360,9 @@ public class CustomFloat
 				}
 
 				// This only happens if the number1 counter is equal to or greater than 0
-				if (number1Counter >= 0)
+				if (number1Counter >= 0 && number1Float.Length > number1Counter)
 				{
+
 					// This is the next character
 					nextCharacter1 = number1Float.Substring(number1Counter, 1);
 
@@ -380,7 +388,7 @@ public class CustomFloat
 				}
 
 				// This only happens if the number2 counter is equal to or greater than 0
-				if (number2Counter >= 0)
+				if (number2Counter >= 0 && number2Float.Length > number2Counter)
 				{
 
 					// This is the next character
@@ -450,6 +458,332 @@ public class CustomFloat
 				return Add(number1, new CustomFloat(number2.GetFloat().Substring(1), number2.significantDigits), significantDigits);
 			}
 		}
+	}
+
+	/// <summary>
+	/// This multiplies the first number times the second number
+	/// </summary>
+	/// <param name="number1">The first number to multiply</param>
+	/// <param name="number2">The second number to multiply</param>
+	/// <param name="significantDigits">The significant digits to be used in the result</param>
+	/// <returns>The CustomFloat of the first number times the second number</returns>
+	public static CustomFloat Multiply(CustomFloat number1, CustomFloat number2, int significantDigits)
+	{
+		// These are the string values of the CustomFloat numbers
+		string number1Float = number1.GetFloat();
+		string number2Float = number2.GetFloat();
+
+		// This tells whether the first number is positive or not then removes the minus sign for the calculations
+		bool number1IsNegative = number1Float.Substring(0, 1).Equals("-");
+		if (number1IsNegative)
+		{
+			number1Float = number1Float.Substring(1);
+		}
+
+		// This tells whether the second number is positive or not then removes the minus sign for the calculations
+		bool number2IsNegative = number2Float.Substring(0, 1).Equals("-");
+		if (number2IsNegative)
+		{
+			number2Float = number2Float.Substring(1);
+		}
+
+		// This tells the number of significant digits in the first number
+		int number1SignificantDigits = number1Float.IndexOf("e") - 1;
+		if (number1Float.IndexOf(".") == -1)
+		{
+			number1SignificantDigits = 1;
+		}
+
+		// This tells the number of significant digits in the second number
+		int number2SignificantDigits = number2Float.IndexOf("e") - 1;
+		if (number2Float.IndexOf(".") == -1)
+		{
+			number2SignificantDigits = 1;
+		}
+
+		// This removes the decimal for the first number for the calculations
+		if (number1Float.IndexOf(".") != -1)
+		{
+			number1Float = number1Float.Substring(0, 1) + number1Float.Substring(2);
+		}
+
+		// This removes the decimal for the second number for the calculations
+		if (number2Float.IndexOf(".") != -1)
+		{
+			number2Float = number2Float.Substring(0, 1) + number2Float.Substring(2);
+		}
+
+		// These show the magnitude of each of the numbers to add
+		int number1Magnitude = int.Parse(number1Float.Substring(number1Float.IndexOf("e") + 1));
+		int number2Magnitude = int.Parse(number2Float.Substring(number2Float.IndexOf("e") + 1));
+
+		// This is the product to be totalled from multiplying
+		CustomFloat product = new CustomFloat("0", significantDigits + 1);
+
+		// This loops through the diagonal when the factors are layed out in a product square
+		for (int i = 0; i < significantDigits + 1; i++)
+		{
+
+			// This is the length of the boxes in the diagonal
+			int diagonal = Mathf.Min(Mathf.Min(number1SignificantDigits + 1, number2SignificantDigits + 1), i + 1);
+
+			// These are the coordinates of the box start for the diagonal
+			int x = Mathf.Max(i - number1SignificantDigits, 0);
+			int y = Mathf.Min(i, number2SignificantDigits);
+
+			// This loops through the boxes in the diagonal
+			for (int j = 0; j < diagonal; j++)
+			{
+
+				// The digit product starts at 1
+				string digitProduct = "1";
+
+				// This multiplies the digitProduct by the xth digit in the first number
+				if (y < number1SignificantDigits)
+				{
+					digitProduct = number1Float.Substring(y, 1);
+				}
+				else
+				{
+					digitProduct = "0";
+				}
+
+				// This multiplies the digitProduct by the yth digit in the second number
+				if (x < number2SignificantDigits)
+				{
+					digitProduct = (int.Parse(digitProduct) * int.Parse(number2Float.Substring(x, 1))).ToString();
+				}
+				else
+				{
+					digitProduct = "0";
+				}
+
+				// This adds the necessary zeros based on the x and y values and the number magnitudes
+				for (int k = 0; k < (number1SignificantDigits - y - 1) + (number2SignificantDigits - x - 1); k++)
+				{
+					digitProduct += "0";
+				}
+
+				// This adds the box's product to the total so far
+				product.Add(new CustomFloat(digitProduct, significantDigits + 1));
+
+				// This moves the x and y positions to the next in the diagonal
+				x++;
+				y--;
+			}
+		}
+
+		// This is what the magnitude of the number needs to change by
+		int magnitude = 0;
+
+		// This changes the magnitude based on the significant digits and magnitude of the original numbers
+		magnitude += number1Magnitude - number1SignificantDigits + 1;
+		magnitude += number2Magnitude - number2SignificantDigits + 1;
+
+		// This appends the magnitude to the number using e and the magnitude
+		product = new CustomFloat(product.GetFloatNormal() + "e" + magnitude, significantDigits);
+
+		// This manages whether the answer is positive or negative
+		if (number1IsNegative != number2IsNegative)
+		{
+			product = new CustomFloat("-" + product.GetFloat(), significantDigits);
+		}
+
+		// This returns the product
+		return product;
+	}
+
+	/// <summary>
+	/// This divides the first number divided by the second number
+	/// </summary>
+	/// <param name="number1">The first number to be divided</param>
+	/// <param name="number2">The second number to divide by</param>
+	/// <param name="significantDigits">The significant digits to be used in the result</param>
+	/// <returns>The CustomFloat of the first number divided by the second number</returns>
+	public static CustomFloat Divide(CustomFloat number1, CustomFloat number2, int significantDigits)
+	{
+
+		// This returns zero if the divisor is zero since it is undefined and could cause an error 
+		if (number2.GetFloat().Substring(0, 1).Equals("0"))
+		{
+			Debug.LogError("Yoooo, you divided by zero and idk what to do wid dat");
+			return new CustomFloat("0", significantDigits);
+		}
+
+		// This returns zero if the first number is zero
+		else if (number1.GetFloat().Substring(0, 1).Equals("0"))
+		{
+			return new CustomFloat("0", significantDigits);
+		}
+
+		// These are the string values of the CustomFloat numbers
+		string number1Float = number1.GetFloat();
+		string number2Float = number2.GetFloat();
+
+		// This tells whether the first number is positive or not then removes the minus sign for the calculations
+		bool number1IsNegative = number1Float.Substring(0, 1).Equals("-");
+		if (number1IsNegative)
+		{
+			number1Float = number1Float.Substring(1);
+		}
+
+		// This tells whether the second number is positive or not then removes the minus sign for the calculations
+		bool number2IsNegative = number2Float.Substring(0, 1).Equals("-");
+		if (number2IsNegative)
+		{
+			number2Float = number2Float.Substring(1);
+		}
+
+		// This tells the number of significant digits in the first number
+		int number1SignificantDigits = number1Float.IndexOf("e") - 1;
+		if (number1Float.IndexOf(".") == -1)
+		{
+			number1SignificantDigits = 1;
+		}
+
+		// This tells the number of significant digits in the second number
+		int number2SignificantDigits = number2Float.IndexOf("e") - 1;
+		if (number2Float.IndexOf(".") == -1)
+		{
+			number2SignificantDigits = 1;
+		}
+
+		// This removes the decimal for the first number for the calculations
+		if (number1Float.IndexOf(".") != -1)
+		{
+			number1Float = number1Float.Substring(0, 1) + number1Float.Substring(2);
+		}
+
+		// This removes the decimal for the second number for the calculations
+		if (number2Float.IndexOf(".") != -1)
+		{
+			number2Float = number2Float.Substring(0, 1) + number2Float.Substring(2);
+		}
+
+		// These show the magnitude of each of the numbers to add
+		int number1Magnitude = int.Parse(number1Float.Substring(number1Float.IndexOf("e") + 1));
+		int number2Magnitude = int.Parse(number2Float.Substring(number2Float.IndexOf("e") + 1));
+
+		// This counts the number of digits used in the dividend
+		int dividendDigits = 1;
+
+		// This is the number of times that it takes until the first nonzero number digit is found when dividing
+		int dividingPlaces = 0;
+
+		// This is the number that will be divided
+		CustomFloat dividend = new CustomFloat(number1Float.Substring(0, dividendDigits), dividendDigits);
+
+		// This is the number which will be divided by
+		CustomFloat divisor = new CustomFloat(number2Float.Substring(0, number2.significantDigits), number2SignificantDigits);
+
+		// This is the quotient of the dividend divided by the divisor
+		CustomFloat quotient = new CustomFloat("0", 1);
+
+		// This tells whether the first nonzero digit has been found
+		bool firstNonzeroDigitFound = false;
+
+		// This loops through the dividing process to find the number of significant digits
+		for (int i = 0; i < significantDigits; i++)
+		{
+
+			// This happens when the section of the dividend is greater than the divisor
+			if (IsGreaterThanOrEqual(dividend, divisor))
+			{
+				firstNonzeroDigitFound = true;
+
+				// This subtracts the divisor from the dividend to find the next digit in the quotient
+				for (int j = 0; j < 10; j++)
+				{
+
+					// If the dividend is greater than or equal to the divisor then it subtracts another divisor from the dividend
+					if (IsGreaterThanOrEqual(dividend, divisor))
+					{
+
+						// This subtracts the divisor from the dividend
+						dividend = Subtract(dividend, divisor, dividend.significantDigits + 1);
+
+						// This variable gets the exact significant digits for the whole number
+						int newDividendSignificantDigit = dividend.GetFloat().IndexOf("e") - 1;
+						newDividendSignificantDigit += int.Parse(dividend.GetFloat().Substring(dividend.GetFloat().IndexOf("e") + 1));
+						newDividendSignificantDigit -= (dividend.GetFloat().IndexOf("e") - 2);
+						if (dividend.significantDigits == 1)
+						{
+							newDividendSignificantDigit = 1;
+						}
+
+						// The new significant digit that is found is set in the dividend
+						dividend.significantDigits = newDividendSignificantDigit;
+
+					}
+
+					// If the dividend is less than the divisor then the digit is appended to the end of the quotient and the leftovers are appended to the start of the next digit in the dividend
+					else
+					{
+
+
+						// The next digit is appended to the end of the quotient
+						quotient = new CustomFloat(quotient.GetFloatNormal() + j, i + 1);
+
+						// This appends the leftovers to the start of the next digit
+						dividendDigits++;
+						if (dividendDigits > number1SignificantDigits)
+						{
+							dividend = new CustomFloat(dividend.GetFloatNormal() + "e1", dividend.significantDigits + 1);
+						}
+						else
+						{
+							dividend = new CustomFloat(dividend.GetFloatNormal() + number1Float.Substring(dividendDigits - 1, 1), dividend.significantDigits + 1);
+						}
+						break;
+					}
+				}
+			}
+
+			// This happens when the dividend is less than the divisor so another digit needs to be appended to calculate the next nonzero digit
+			else
+			{
+
+				// If the first nonzero digit has been found then it appends a zero to the quotient
+				if (firstNonzeroDigitFound)
+				{
+					quotient = new CustomFloat(quotient.GetFloatNormal() + "0", i + 1);
+				}
+
+				// If the first nonzero digit has not been found the it decreases i so that it finds the correct amount of significant digits and increases the dividing places since the zero digit will not be recorded in the quotient
+				else
+				{
+					i--;
+					dividingPlaces++;
+				}
+
+				// The next digit in the number1 is appended to the dividend and a zero is appended if there are no more significant digits left
+				dividendDigits++;
+				if (dividendDigits > number1SignificantDigits)
+				{
+					dividend = new CustomFloat(dividend.GetFloatNormal() + "e1", dividend.significantDigits + 1);
+				}
+				else
+				{
+					dividend = new CustomFloat(dividend.GetFloatNormal() + number1Float.Substring(dividendDigits - 1, 1), dividend.significantDigits + 1);
+				}
+			}
+		}
+
+		// This formula determines how the decimal place should be shifted in the quotient
+		int decimalPlaceShift = number1Magnitude - number2Magnitude - 1;
+		decimalPlaceShift -= (dividingPlaces - number2Float.Substring(0, number2Float.IndexOf("e")).Length);
+
+		// This shifts the decimal places based on the above variable
+		quotient = new CustomFloat(quotient.GetFloatNormal().Substring(0, 1) + "." + quotient.GetFloatNormal().Substring(1) + "e" + decimalPlaceShift, quotient.significantDigits);
+
+		// If exactly one of the numbers is negative then the result is negative
+		if (number1IsNegative != number2IsNegative)
+		{
+			quotient = new CustomFloat("-" + quotient.GetFloat(), significantDigits);
+		}
+
+		// This returns the final quotient CustomFloat
+		return quotient;
 	}
 
 	/// <summary>
@@ -711,10 +1045,19 @@ public class CustomFloat
 			formattedString = formattedString.Substring(1, formattedString.Length - 1);
 		}
 
-		// This defaults a blank string to 0
+		// This defaults a blank string to 0 with correct significant digits
 		if (formattedString.Equals(""))
 		{
 			formattedString = "0";
+			if (significantDigits > 1)
+			{
+				formattedString += ".";
+				for (int i = 0; i < significantDigits; i++)
+				{
+					formattedString += "0";
+				}
+			}
+			return formattedString + "e0";
 		}
 
 		// This is the magnitude of the number and what will be displayed after the e
@@ -864,6 +1207,12 @@ public class CustomFloat
 
 		// This adds the e and magnitude number to finalize the scientific notation
 		finalFormat += "e" + numberMagnitude.ToString();
+
+		// This makes the magnitude 0 if the number is exactly zero
+		if (finalFormat.Substring(0, 1).Equals("0"))
+		{
+			finalFormat = finalFormat.Substring(0, finalFormat.IndexOf("e")) + "e0";
+		}
 
 		// This makes the number negative if it was said negative before fiinding the magnitude
 		if (negative)

@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/UnityScenes/Yahtzee1Player.unity
+- path: Assets/UnityScenes/YahtzeeAITesting.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

@@ -1,11 +1,8 @@
 ﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CustomFloat.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AITesting.cs">
     <Files>
-      <File FileName="Assets/Scripts/YahtzeeMaximizeAlgorithm.cs" Line="13" Column="2" />
-      <File FileName="Assets/Scripts/Move.cs" Line="82" Column="43" />
-      <File FileName="Assets/Scripts/ScorecardState.cs" Line="13" Column="15" />
-      <File FileName="Assets/AITesting.cs" Line="19" Column="10" />
-      <File FileName="Assets/Scripts/CustomFloat.cs" Line="5" Column="27" />
+      <File FileName="Assets/Scripts/CustomFloat.cs" Line="491" Column="40" />
+      <File FileName="Assets/Scripts/AITesting.cs" Line="25" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,7 +12,7 @@
               <Node name="Scripts" expanded="True">
                 <Node name="Die" expanded="True" />
                 <Node name="ScoringBoxes" expanded="True" />
-                <Node name="CustomFloat.cs" selected="True" />
+                <Node name="AITesting.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -25,7 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0b79f440-af09-4bda-8cfd-4babcf86791f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4eca037d-9565-4e6e-bbfe-45e507281fe8" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
