@@ -1,18 +1,23 @@
-﻿<Properties StartupConfiguration="{8DADB3C9-64AF-2208-2738-0C251233326F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AITesting.cs">
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/YahtzeeAIStuff/Path.cs">
     <Files>
-      <File FileName="Assets/Scripts/CustomFloat.cs" Line="491" Column="40" />
-      <File FileName="Assets/Scripts/AITesting.cs" Line="25" Column="5" />
+      <File FileName="Assets/Scripts/AITesting.cs" Line="135" Column="1" />
+      <File FileName="Assets/Scripts/DirectedGraph.cs" Line="67" Column="31" />
+      <File FileName="Assets/Scripts/Vertex.cs" Line="22" Column="20" />
+      <File FileName="Assets/Scripts/YahtzeeAIStuff/Path.cs" Line="7" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Yatzee Calculator" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="Die" expanded="True" />
-                <Node name="ScoringBoxes" expanded="True" />
-                <Node name="AITesting.cs" selected="True" />
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="DataStructureStuff" expanded="True" />
+                  <Node name="YahtzeeAIStuff" expanded="True">
+                    <Node name="Path.cs" selected="True" />
+                  </Node>
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -22,7 +27,6 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4eca037d-9565-4e6e-bbfe-45e507281fe8" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
