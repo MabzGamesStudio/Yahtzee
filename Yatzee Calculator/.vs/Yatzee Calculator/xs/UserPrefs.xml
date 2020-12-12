@@ -1,10 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/YahtzeeAIStuff/Path.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Data/YahtzeeTableNormalFloatSave2.txt">
     <Files>
-      <File FileName="Assets/Scripts/AITesting.cs" Line="135" Column="1" />
-      <File FileName="Assets/Scripts/DirectedGraph.cs" Line="67" Column="31" />
-      <File FileName="Assets/Scripts/Vertex.cs" Line="22" Column="20" />
-      <File FileName="Assets/Scripts/YahtzeeAIStuff/Path.cs" Line="7" Column="6" />
+      <File FileName="Assets/Scripts/YahtzeeAIStuff/AITesting.cs" Line="26" Column="20" />
+      <File FileName="Assets/Data/YahtzeeTableNormalFloat.txt" Line="302" Column="17" />
+      <File FileName="Assets/Data/YahtzeeTableNormalFloatSave2.txt" Line="253" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,15 +11,22 @@
           <Node name="Yatzee Calculator" expanded="True">
             <Node name="Assembly-CSharp" expanded="True">
               <Node name="Assets" expanded="True">
+                <Node name="Data" expanded="True">
+                  <Node name="YahtzeeTableNormalFloatSave2.txt" selected="True" />
+                </Node>
                 <Node name="Scripts" expanded="True">
                   <Node name="DataStructureStuff" expanded="True" />
-                  <Node name="YahtzeeAIStuff" expanded="True">
-                    <Node name="Path.cs" selected="True" />
-                  </Node>
+                  <Node name="DattIOStuff" expanded="True" />
+                  <Node name="YahtzeeAIStuff" expanded="True" />
                 </Node>
               </Node>
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="Yatzee Calculator" selected="True" />
         </State>
       </Pad>
     </Pads>

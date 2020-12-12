@@ -6,6 +6,261 @@ public static class YahtzeeScoring
 {
 
 	/// <summary>
+	/// This calculates the point value of choosing the box of the given boxIndex and the given gameState and diceHeld. The boxIndex must be between 0 and 12 and diceHeld must be a string of 5 characters consisting of 1-6. Also the given boxIndex must refer to a box that is available for play
+	/// </summary>
+	/// <param name="gameState">The current GameState to be calculated</param>
+	/// <param name="diceHeld">The current dice held to be calculated with</param>
+	/// <param name="boxIndex">The index to calculate the value of the move at the boxIndex</param>
+	/// <returns>The points earned based on filling in the boxIndex in the current gameState and the diceHeld</returns>
+	public static int CalculateBoxOutcome(GameState gameState, string diceHeld, int boxIndex)
+	{
+
+		// This handles improper input values
+		if (diceHeld == null)
+		{
+			throw new System.Exception("A: The given diceHeld is null.");
+		}
+		else if (diceHeld.Length != 5)
+		{
+			throw new System.Exception("B: The given diceHeld is not length 5, it should be. The given diceHeld is " + diceHeld);
+		}
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			if (!"123456".Contains(diceHeld.Substring(0, 1)))
+			{
+				throw new System.Exception("C: The diceHeld can only have the characters 1, 2, 3, 4, 5, or 6. The given diceHeld is " + diceHeld);
+			}
+		}
+		if (boxIndex < 0 || boxIndex > 12)
+		{
+			throw new System.Exception("D: The boxIndex must be between 0 and 12. The given boxIndex is " + boxIndex);
+		}
+		if (gameState.GetBoxesFilledIn()[boxIndex])
+		{
+			throw new System.Exception("E: The gameState is already filled in at the boxIndex.");
+		}
+
+		// This converts the diceHeld string into an int[]
+		int[] dice = new int[diceHeld.Length];
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			dice[i] = int.Parse(diceHeld.Substring(i, 1));
+		}
+
+		// This tells that a joker is available only if the yahtzee box has been filled in
+		bool jokerAvailable = gameState.GetBoxesFilledIn()[11];
+
+		// This keeps track of the points to be earned for the given box
+		int points = 0;
+
+		// This adds the points of the category depending on the boxIndex
+		switch (boxIndex)
+		{
+			case 0:
+				points = Aces(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 1:
+				points = Twos(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 2:
+				points = Threes(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 3:
+				points = Fours(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 4:
+				points = Fives(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 5:
+				points = Sixes(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 6:
+				points = ThreeOfAKind(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 7:
+				points = FourOfAKind(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 8:
+
+				// If the hand is a joker then the respective full house, small straight, or large striaght box can not be filled in unless the corresponding top section box has been filled in
+				if (!gameState.GetBoxesFilledIn()[dice[0] - 1])
+				{
+					throw new System.Exception("F: Cannot fill in full house because joker has to be filled in upper section.");
+				}
+				points = FullHouse(dice[0], dice[1], dice[2], dice[3], dice[4], jokerAvailable);
+				break;
+			case 9:
+				if (!gameState.GetBoxesFilledIn()[dice[0] - 1])
+				{
+					throw new System.Exception("G: Cannot fill in small straight because joker has to be filled in upper section.");
+				}
+				points = SmallStraight(dice[0], dice[1], dice[2], dice[3], dice[4], jokerAvailable);
+				break;
+			case 10:
+				if (!gameState.GetBoxesFilledIn()[dice[0] - 1])
+				{
+					throw new System.Exception("H: Cannot fill in large straight because joker has to be filled in upper section.");
+				}
+				points = LargeStraight(dice[0], dice[1], dice[2], dice[3], dice[4], jokerAvailable);
+				break;
+			case 11:
+				points = Yahtzee(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 12:
+				points = Chance(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+		}
+
+		// This adds the top section bonus if it is earned
+		if (boxIndex < 6)
+		{
+			if (gameState.GetTopTotal() < 63 && gameState.GetTopTotal() + points >= 63)
+			{
+				points += 35;
+			}
+		}
+
+		// This adds the yahtzee bonus if it is earned
+		if (gameState.GetBonusAvailable() && jokerAvailable && dice[0] == dice[1] && dice[1] == dice[2] && dice[2] == dice[3] && dice[3] == dice[4])
+		{
+			points += 100;
+		}
+
+		// The final point value is returned
+		return points;
+	}
+
+	/// <summary>
+	/// This calculates the point value of choosing the box of the given boxIndex and the given gameState and diceHeld. The boxIndex must be between 0 and 12 and diceHeld must be a string of 5 characters consisting of 1-6. Also the given boxIndex must refer to a box that is available for play
+	/// </summary>
+	/// <param name="gameState">The current GameState to be calculated</param>
+	/// <param name="diceHeld">The current dice held to be calculated with</param>
+	/// <param name="boxIndex">The index to calculate the value of the move at the boxIndex</param>
+	/// <returns>Whether the new gameState has a yahtzee bonus available</returns>
+	public static bool CanEarnYahtzeeBonus(GameState gameState, string diceHeld, int boxIndex)
+	{
+
+		// This handles improper input values
+		if (diceHeld == null)
+		{
+			throw new System.Exception("A: The given diceHeld is null.");
+		}
+		else if (diceHeld.Length != 5)
+		{
+			throw new System.Exception("B: The given diceHeld is not length 5, it should be. The given diceHeld is " + diceHeld);
+		}
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			if (!"123456".Contains(diceHeld.Substring(0, 1)))
+			{
+				throw new System.Exception("C: The diceHeld can only have the characters 1, 2, 3, 4, 5, or 6. The given diceHeld is " + diceHeld);
+			}
+		}
+		if (boxIndex < 0 || boxIndex > 12)
+		{
+			throw new System.Exception("D: The boxIndex must be between 0 and 12. The given boxIndex is " + boxIndex);
+		}
+		if (gameState.GetBoxesFilledIn()[boxIndex])
+		{
+			throw new System.Exception("E: The gameState is already filled in at the boxIndex.");
+		}
+
+		// If the yahtzee box is already filled in, then the yatzee bonus available is the same as the previous gameState
+		if (gameState.GetBoxesFilledIn()[11])
+		{
+			return gameState.GetBonusAvailable();
+		}
+
+		// If the yahtzee box will not be filled in, then yahtzee bonus will remain available
+		if (boxIndex != 11)
+		{
+			return true;
+		}
+
+		// This converts the diceHeld string into an int[]
+		int[] dice = new int[diceHeld.Length];
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			dice[i] = int.Parse(diceHeld.Substring(i, 1));
+		}
+
+		// If a yatzee is earned, then yahtzee bonus remains available, but if 0 is earned in the yahtzee box, then yahtzee bonus is no longer available
+		return dice[0] == dice[1] && dice[1] == dice[2] && dice[2] == dice[3] && dice[3] == dice[4];
+	}
+
+	/// <summary>
+	/// This calculates the new top total based on the gameState, diceHeld, and boxIndex
+	/// </summary>
+	/// <param name="gameState">The current GameState to be calculated</param>
+	/// <param name="diceHeld">The current dice held to be calculated with</param>
+	/// <param name="boxIndex">The index to calculate the value of the move at the boxIndex</param>
+	/// <returns>The new top total based on the current top total, diceHeld, and gameState, and box index of the box filled in</returns>
+	public static int NewTopTotal(GameState gameState, string diceHeld, int boxIndex)
+	{
+
+		// This handles improper input values
+		if (diceHeld == null)
+		{
+			throw new System.Exception("A: The given diceHeld is null.");
+		}
+		else if (diceHeld.Length != 5)
+		{
+			throw new System.Exception("B: The given diceHeld is not length 5, it should be. The given diceHeld is " + diceHeld);
+		}
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			if (!"123456".Contains(diceHeld.Substring(0, 1)))
+			{
+				throw new System.Exception("C: The diceHeld can only have the characters 1, 2, 3, 4, 5, or 6. The given diceHeld is " + diceHeld);
+			}
+		}
+		if (boxIndex < 0 || boxIndex > 5)
+		{
+			throw new System.Exception("D: The boxIndex must be between 0 and 5. The given boxIndex is " + boxIndex);
+		}
+		if (gameState.GetBoxesFilledIn()[boxIndex])
+		{
+			throw new System.Exception("E: The gameState is already filled in at the boxIndex.");
+		}
+
+		// This converts the diceHeld string into an int[]
+		int[] dice = new int[diceHeld.Length];
+		for (int i = 0; i < diceHeld.Length; i++)
+		{
+			dice[i] = int.Parse(diceHeld.Substring(i, 1));
+		}
+
+		// This keeps track of the points to be earned for the given box
+		int points = 0;
+
+		// This adds the points of the category depending on the boxIndex
+		switch (boxIndex)
+		{
+			case 0:
+				points = Aces(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 1:
+				points = Twos(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 2:
+				points = Threes(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 3:
+				points = Fours(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 4:
+				points = Fives(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+			case 5:
+				points = Sixes(dice[0], dice[1], dice[2], dice[3], dice[4]);
+				break;
+		}
+
+		// This returns the new top total or 63 (which is the max top total)
+		return Mathf.Min(63, points + gameState.GetTopTotal());
+	}
+
+	/// <summary>
 	/// This returns the points awarded for aces given a hand of 5 dice
 	/// </summary>
 	/// <param name="die1">The first die</param>

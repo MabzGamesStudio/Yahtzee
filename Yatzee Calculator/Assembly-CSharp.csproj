@@ -57,6 +57,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\DataStructureStuff\DirectedGraph.cs" />
      <Compile Include="Assets\Scripts\DataStructureStuff\Vertex.cs" />
+     <Compile Include="Assets\Scripts\DataStructureStuff\YahtzeeDirectedGraph.cs" />
+     <Compile Include="Assets\Scripts\DattIOStuff\PathProbabilitiesIO.cs" />
+     <Compile Include="Assets\Scripts\DattIOStuff\YahtzeeDataIO.cs" />
      <Compile Include="Assets\Scripts\Die\Die.cs" />
      <Compile Include="Assets\Scripts\Die\DieEditor.cs" />
      <Compile Include="Assets\Scripts\PrefabScripts\DiceToHold.cs" />
@@ -83,14 +86,12 @@
      <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxTwos.cs" />
      <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzee.cs" />
      <Compile Include="Assets\Scripts\ScoringBoxes\ScoringBoxYahtzeeBonus.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\AITesting.cs" />
+     <Compile Include="Assets\Scripts\YahtzeeAIStuff\Anagram.cs" />
      <Compile Include="Assets\Scripts\YahtzeeAIStuff\CustomFloat.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\Move.cs" />
+     <Compile Include="Assets\Scripts\YahtzeeAIStuff\GameState.cs" />
+     <Compile Include="Assets\Scripts\YahtzeeAIStuff\GameStateValueGenerator.cs" />
      <Compile Include="Assets\Scripts\YahtzeeAIStuff\Path.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\ScorecardData5Digit.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\ScorecardDataElement.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\ScorecardState.cs" />
-     <Compile Include="Assets\Scripts\YahtzeeAIStuff\YahtzeeMaximizeAlgorithm.cs" />
+     <Compile Include="Assets\Scripts\YahtzeeAIStuff\VertexInformation.cs" />
      <Compile Include="Assets\Scripts\YahtzeeAIStuff\YahtzeeScoring.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -131,6 +132,7 @@
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\Data\YahtzeeTableNormalFloatSave1.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -139,13 +141,16 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\Data\YahtzeeTableNormalFloatSave2.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\Data\PathProbabilitiesNormalFloat.txt" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+     <None Include="Assets\Data\YahtzeeTableNormalFloat.txt" />
  <Reference Include="UnityEngine">
  <HintPath>/Users/mabz/Desktop/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
