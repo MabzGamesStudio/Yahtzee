@@ -18,12 +18,12 @@ public class GameStateValueGenerator : MonoBehaviour
 	/// <summary>
 	/// This is the iteration that the GameState value generation starts at
 	/// </summary>
-	static int start = 4;
+	static int start = 1;
 
 	/// <summary>
 	/// This is the iteration that the GameState value generation ends at. This should not exceed 2^13 - 1, which is 8191.
 	/// </summary>
-	static int end = 4;
+	static int end = 1;
 
 	/// <summary>
 	/// When the game starts it starts generating GameStateValues.

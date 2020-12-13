@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Data/YahtzeeTableNormalFloatSave2.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/YahtzeeAIStuff/GameStateValueGenerator.cs">
     <Files>
-      <File FileName="Assets/Scripts/YahtzeeAIStuff/AITesting.cs" Line="26" Column="20" />
-      <File FileName="Assets/Data/YahtzeeTableNormalFloat.txt" Line="302" Column="17" />
+      <File FileName="Assets/Scripts/YahtzeeAIStuff/AITesting.cs" Line="37" Column="2" />
+      <File FileName="Assets/Data/YahtzeeTableNormalFloat.txt" Line="552" Column="10" />
       <File FileName="Assets/Data/YahtzeeTableNormalFloatSave2.txt" Line="253" Column="1" />
     </Files>
     <Pads>
@@ -11,13 +11,13 @@
           <Node name="Yatzee Calculator" expanded="True">
             <Node name="Assembly-CSharp" expanded="True">
               <Node name="Assets" expanded="True">
-                <Node name="Data" expanded="True">
-                  <Node name="YahtzeeTableNormalFloatSave2.txt" selected="True" />
-                </Node>
+                <Node name="Data" expanded="True" />
                 <Node name="Scripts" expanded="True">
                   <Node name="DataStructureStuff" expanded="True" />
                   <Node name="DattIOStuff" expanded="True" />
-                  <Node name="YahtzeeAIStuff" expanded="True" />
+                  <Node name="YahtzeeAIStuff" expanded="True">
+                    <Node name="GameStateValueGenerator.cs" selected="True" />
+                  </Node>
                 </Node>
               </Node>
             </Node>

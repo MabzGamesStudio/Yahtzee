@@ -152,7 +152,7 @@ public class GameState
 			{
 				for (int j = 0; j < 5; j++)
 				{
-					boxesFilledInPossibleNumbers.Add(i);
+					boxesFilledInPossibleNumbers.Add(i + 1);
 				}
 			}
 		}
@@ -177,7 +177,7 @@ public class GameState
 	/// <param name="set">The set of numbers in descending order</param>
 	/// <param name="value">The value to see if the set can sum to</param>
 	/// <returns>Whether a subset of numbers in the given set can sum to the given value</returns>
-	static bool SetCanSumToValue(int[] set, int value)
+	public static bool SetCanSumToValue(int[] set, int value)
 	{
 
 		// Trivial case where any set can sum to 0
@@ -206,6 +206,27 @@ public class GameState
 		if (set.Contains(value))
 		{
 			return true;
+		}
+
+		// If there are no numbers left in the set, then no subset can add to the value
+		if (set.Count == 0)
+		{
+			return false;
+		}
+
+		// This is the sum of the numbers in the set
+		int sum = 0;
+
+		// This calculates the sum by adding each number from the set to the sum variable
+		for (int i = 0; i < set.Count; i++)
+		{
+			sum += set[i];
+		}
+
+		// If the sum of the numbers in the set is less than the value, then there is no possibe way the numbers in the set can add to the value
+		if (sum < value)
+		{
+			return false;
 		}
 
 		// This is the previous value in the list, in this case it 
