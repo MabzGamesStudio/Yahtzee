@@ -152,7 +152,7 @@ public class GameState
 			{
 				for (int j = 0; j < 5; j++)
 				{
-					boxesFilledInPossibleNumbers.Add(i);
+					boxesFilledInPossibleNumbers.Add(i + 1);
 				}
 			}
 		}
@@ -206,6 +206,27 @@ public class GameState
 		if (set.Contains(value))
 		{
 			return true;
+		}
+
+		// If there are no elements left in the set, then the set can't add to values
+		if (set.Count == 0)
+		{
+			return false;
+		}
+
+		// This is the sum of numbers in the set
+		int sum = 0;
+
+		// This calculates the sum of all the numbers in the set by adding each number to sum
+		for (int i = 0; i < set.Count; i++)
+		{
+			sum += set[i];
+		}
+
+		// If the sum is less than value then there is no possible way that the numbers in set can add to value
+		if (sum < value)
+		{
+			return false;
 		}
 
 		// This is the previous value in the list, in this case it 
