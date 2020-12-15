@@ -63,7 +63,7 @@ public class GameStateValueGenerator : MonoBehaviour
 			bool[] filledInBoxes = GenerateFilledInArray(i);
 
 			// This generates all of the GameState values with all 64 top section totals and both yahtzee bonus true and false
-			for (int j = 0; j < 63; j++)
+			for (int j = 0; j < 64; j++)
 			{
 
 				// This is the GameState with filledInBoxes, no yahtzeeBonus, and j top total
@@ -126,7 +126,7 @@ public class GameStateValueGenerator : MonoBehaviour
 		}
 
 		// This generates all of the GameState values with all 64 top section totals and both yahtzee bonus true and false
-		for (int j = 0; j < 63; j++)
+		for (int j = 0; j < 64; j++)
 		{
 
 			// This is the GameState with filledInBoxes, no yahtzeeBonus, and j top total
@@ -140,7 +140,6 @@ public class GameStateValueGenerator : MonoBehaviour
 
 			// This adds the calculated averagePointValue of gameState1 to the yahtzee data
 			YahtzeeDataIO.AddToDictionary(gameStateID1, gameStateAveragePointValue1.ToString(), yahtzeeFileName);
-
 
 			// This is the GameState with filledInBoxes, a yahtzeeBonus, and j top total
 			GameState gameState2 = new GameState(filledInBoxes, true, j);
@@ -175,7 +174,7 @@ public class GameStateValueGenerator : MonoBehaviour
 			bool[] filledInBoxes = GenerateFilledInArray(i);
 
 			// This generates all of the GameState values with all 64 top section totals and both yahtzee bonus true and false
-			for (int j = 0; j < 63; j++)
+			for (int j = 0; j < 64; j++)
 			{
 
 				// This is the GameState with filledInBoxes, no yahtzeeBonus, and j top total

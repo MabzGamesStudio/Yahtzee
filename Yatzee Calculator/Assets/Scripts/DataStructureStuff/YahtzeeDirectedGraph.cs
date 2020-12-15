@@ -262,7 +262,17 @@ public class YahtzeeDirectedGraph : DirectedGraph<VertexInformation>
 				string newGameStateID = YahtzeeDataIO.ConvertGameStateToID(newGameState);
 
 				// This adds the averagePointValue of the newGameState by accessing the yahtzee data
-				boxChoicePointValues[i] += float.Parse(YahtzeeDataIO.GetFromDictionary(newGameStateID, dataFileName));
+				try
+				{
+					boxChoicePointValues[i] += float.Parse(YahtzeeDataIO.GetFromDictionary(newGameStateID, dataFileName));
+				}
+
+				// If the newGameStateID does not exist, then the GameState is not possible so the boxChoicePointValues[i] is not increased
+				catch (System.Exception e)
+				{
+					// Ignore
+				}
+				
 			}
 		}
 
