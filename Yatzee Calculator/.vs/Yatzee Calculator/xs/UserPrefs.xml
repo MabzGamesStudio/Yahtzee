@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/YahtzeeAIStuff/GameStateValueGenerator.cs">
     <Files>
-      <File FileName="Assets/Scripts/YahtzeeAIStuff/AITesting.cs" Line="37" Column="2" />
-      <File FileName="Assets/Data/YahtzeeTableNormalFloat.txt" Line="552" Column="10" />
-      <File FileName="Assets/Data/YahtzeeTableNormalFloatSave2.txt" Line="253" Column="1" />
+      <File FileName="Assets/Scripts/YahtzeeAIStuff/AITesting.cs" Line="38" Column="3" />
+      <File FileName="Assets/Data/YahtzeeTableNormalFloat.txt" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DattIOStuff/YahtzeeDataIO.cs" Line="141" Column="54" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
