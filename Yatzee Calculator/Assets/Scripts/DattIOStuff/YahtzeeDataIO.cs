@@ -233,13 +233,24 @@ public static class YahtzeeDataIO
 			binaryID += "0";
 		}
 
+		// This is the binary representation of the top total of length 7
+		string topTotalBinary = "";
+
 		// This concatinates the binary topTotal 
 		int integerTopTotal = gameState.GetTopTotal();
-		do
+
+		// This adds digits to the topTotalBinary
+		while (integerTopTotal != 0)
 		{
-			binaryID += integerTopTotal % 2;
+			topTotalBinary = (integerTopTotal % 2) + topTotalBinary;
 			integerTopTotal /= 2;
-		} while (integerTopTotal != 0);
+		}
+
+		// If the topTotalBinary is less than 7 digits, then 0s are concatinated to the front to keep all topTotal numbers 7 digits
+		topTotalBinary = "000000".Substring(0, 6 - topTotalBinary.Length) + topTotalBinary;
+
+		// The topTotalBinary is concatinated to the binary ID
+		binaryID += topTotalBinary;
 
 		// This converts the binary string to a base 10 int
 		int integerID = 0;
