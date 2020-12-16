@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameStateValueGenerator : MonoBehaviour
 {
@@ -35,10 +36,10 @@ public class GameStateValueGenerator : MonoBehaviour
 		timer = Time.realtimeSinceStartup;
 
 		// This calculates the GameState values and adds them to the yahtzeeFileName data table
-		GenerateGameStateValues(start, end);
+		//GenerateGameStateValues(start, end);
 
 		// This calculates the GameState values for the base cases and adds them to the yahtzeeFileName data table
-		//GenerateBaseCaseGameStates();
+		GenerateBaseCaseGameStates();
 
 		// This checks the GameState values in the yahtzeeFileName data table to see if they exists
 		//CheckGameStateCases(start, end);
@@ -217,6 +218,79 @@ public class GameStateValueGenerator : MonoBehaviour
 					YahtzeeDataIO.AddToDictionary(gameStateID2, gameStateAveragePointValue2.ToString(), yahtzeeFileName);
 				}
 			}
+		}
+
+		// This displays which iterations have been created
+		Debug.Log("From " + start + " to " + end + " (inclusive).");
+	}
+
+	/// <summary>
+	/// This generates GameState Values starting at iteration iteration and ending at iteration iterationStop.
+	/// </summary>
+	/// <param name="iteration">The starting index of iteration</param>
+	/// <param name="iterationStop">The ending index of iteration</param>
+	static void GenerateGameStateValues2(int iteration, int iterationStop)
+	{
+
+		// This generation GameState values from iteration index iteration to iterationStop
+		for (int i = iteration; i < iterationStop + 1; i++)
+		{
+
+			// This is the unique bool[] generated from i
+			bool[] filledInBoxes = GenerateFilledInArray(i);
+
+			List<string> IDList = new List<string>();
+			List<string> valuesList = new List<string>();
+
+			// This generates all of the GameState values with all 64 top section totals and both yahtzee bonus true and false
+			for (int j = 0; j < 64; j++)
+			{
+
+				// This is the GameState with filledInBoxes, no yahtzeeBonus, and j top total
+				GameState gameState1 = new GameState(filledInBoxes, false, j);
+
+				// The GameState value of this GameState is only generated if this GameState is possible
+				if (GameState.GameStatePossible(gameState1))
+				{
+
+					// This is the ID of the gameState1 GameState
+					string gameStateID1 = YahtzeeDataIO.ConvertGameStateToID(gameState1);
+
+					// This is the YahtzeeDirectedGraph based on gameState1 GameState
+					YahtzeeDirectedGraph graph1 = YahtzeeDirectedGraph.CompleteRollGraph(gameState1);
+
+					// This is the averagePointValue of gameState1
+					float gameStateAveragePointValue1 = graph1.GetStart().GetData().GetAveragePointValue();
+
+					//
+					IDList.Add(gameStateID1);
+					IDList.Add(gameStateAveragePointValue1.ToString());
+				}
+
+				// This is the GameState with filledInBoxes, a yahtzeeBonus, and j top total
+				GameState gameState2 = new GameState(filledInBoxes, true, j);
+
+				// The GameState value of this GameState is only generated if this GameState is possible
+				if (GameState.GameStatePossible(gameState2))
+				{
+
+					// This is the ID of the gameState2 GameState
+					string gameStateID2 = YahtzeeDataIO.ConvertGameStateToID(gameState2);
+
+					// This is the YahtzeeDirectedGraph based on gameState2 GameState
+					YahtzeeDirectedGraph graph2 = YahtzeeDirectedGraph.CompleteRollGraph(gameState2);
+
+					// This is the averagePointValue of gameState2
+					float gameStateAveragePointValue2 = graph2.GetStart().GetData().GetAveragePointValue();
+
+					//
+					IDList.Add(gameStateID2);
+					IDList.Add(gameStateAveragePointValue2.ToString());
+				}
+			}
+
+			//
+			YahtzeeDataIO.AddToDictionary(IDList, valuesList, yahtzeeFileName);
 		}
 
 		// This displays which iterations have been created

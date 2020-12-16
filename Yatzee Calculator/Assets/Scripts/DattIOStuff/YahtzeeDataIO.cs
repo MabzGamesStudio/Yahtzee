@@ -77,6 +77,78 @@ public static class YahtzeeDataIO
 	/// <summary>
 	/// This adds the given value to the index ID in the fileName file. If the file does not exist then a new file is created. If a value is overwritten then the debugger will tell you it has been overwritten and it tells you the old line.
 	/// </summary>
+	/// <param name="IDs">The ordered list of IDs to index the value</param>
+	/// <param name="values">The ordered list of values to be stored at the index</param>
+	/// <param name="fileName">The fileName in the Data folder where the dictionary is being updated</param>
+	public static void AddToDictionary(List<string> IDs, List<string> values, string fileName)
+	{
+
+		// The file path for the data to be edited
+		string filePath = "Assets/Data/" + fileName + ".txt";
+
+		// This creates the file if the file does not already exist
+		if (!System.IO.File.Exists(filePath))
+		{
+			Debug.Log("A new file " + fileName + ".txt has been added to the data folder");
+			System.IO.File.Create(filePath);
+		}
+
+		// The whole data set of the file path
+		List<string> yahtzeeData = new List<string>(System.IO.File.ReadAllLines(filePath));
+
+		// If the text file is empty then it only adds the given IDs and values
+		if (yahtzeeData.Count == 0)
+		{
+
+			// This loops through each element in IDs and adds the IDs and values in order
+			string allData = "";
+			for (int i = 0; i < IDs.Count; i++)
+			{
+				allData += IDs[i] + " " + values[i] + "\n";
+
+			}
+			System.IO.File.WriteAllText(filePath, allData);
+			return;
+		}
+
+		// This loops through each element in the list of values and IDs and adds
+		for (int i = 0; i < IDs.Count; i++)
+		{
+
+			// This is the line of data to be added
+			string dataToAdd = IDs[i] + " " + values[i];
+
+			// This is the index in the array where the line will be edited
+			int indexToInsert = FindLineIndex(IDs[i], yahtzeeData.ToArray());
+
+			// If the ID less than the ID in the first line, then it will be inserted in line 0 before the data
+			if (int.Parse(IDs[i]) < int.Parse(GetElementID(yahtzeeData[0])))
+			{
+				yahtzeeData.Insert(0, dataToAdd);
+			}
+
+			// If the element already exists, then it will be overwritten and display a message in the console
+			else if (IDs[i].Equals(GetElementID(yahtzeeData[indexToInsert])))
+			{
+				string oldData = yahtzeeData[indexToInsert];
+				yahtzeeData[indexToInsert] = dataToAdd;
+				Debug.Log("In the file Assets/Data/" + fileName + ".txt on line " + (indexToInsert + 1) + " has been updated from:\n" + oldData + "\n to:\n" + dataToAdd);
+			}
+
+			// In any other scenario the data will be concatinated to the end of the line
+			else
+			{
+				yahtzeeData.Insert(indexToInsert + 1, dataToAdd);
+			}
+		}
+
+		// This overwrites the entire yahtzee data with the new added data
+		System.IO.File.WriteAllLines(filePath, yahtzeeData);
+	}
+
+	/// <summary>
+	/// This adds the given value to the index ID in the fileName file. If the file does not exist then a new file is created. If a value is overwritten then the debugger will tell you it has been overwritten and it tells you the old line.
+	/// </summary>
 	/// <param name="ID">The ID to index the value</param>
 	/// <param name="value">The value to be stored at the index</param>
 	/// <param name="fileName">The fileName in the Data folder where the dictionary is being updated</param>
