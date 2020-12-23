@@ -19,12 +19,12 @@ public class GameStateValueGenerator : MonoBehaviour
 	/// <summary>
 	/// This is the iteration that the GameState value generation starts at
 	/// </summary>
-	static int start = 1;
+	static int start = 401;
 
 	/// <summary>
 	/// This is the iteration that the GameState value generation ends at. This should not exceed 2^13 - 1, which is 8191.
 	/// </summary>
-	static int end = 1;
+	static int end = 1000;
 
 	/// <summary>
 	/// When the game starts it starts generating GameStateValues.
@@ -111,6 +111,15 @@ public class GameStateValueGenerator : MonoBehaviour
 
 		// This displays which iterations have been checked
 		Debug.Log("The GameState checks are complete.");
+	}
+
+	/// <summary>
+	/// This updates the currentIndex file to tell us what iteration this algorithm is in.
+	/// </summary>
+	/// <param name="index">The index of the iteration in the generation algorithm</param>
+	static void UpdateDataIndexFile(int index)
+	{
+		System.IO.File.WriteAllLines("Assets/Data/CurrentDataIndex.txt", new string[] { index.ToString() });
 	}
 
 	/// <summary>
@@ -223,6 +232,9 @@ public class GameStateValueGenerator : MonoBehaviour
 					valuesList.Add(gameStateAveragePointValue2.ToString());
 				}
 			}
+
+			// This updates the currentIndex file to tell us what iteration this algorithm is in
+			UpdateDataIndexFile(i);
 
 			// The lists IDs and values are added to the yahtzee data
 			YahtzeeDataIO.AddToDictionary(IDList, valuesList, yahtzeeFileName);

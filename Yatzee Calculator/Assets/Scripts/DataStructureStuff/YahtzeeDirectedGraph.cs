@@ -219,7 +219,9 @@ public class YahtzeeDirectedGraph : DirectedGraph<VertexInformation>
 			// If the box is already filled in then the boxChoicePointValue for i is set to -1 and any other error is displayed
 			catch (System.Exception e)
 			{
-				if (e.Message.Substring(0, 1).Equals("E"))
+
+				string errorMessage = e.Message.Substring(0, 1);
+				if (errorMessage.Equals("E") || errorMessage.Equals("F") || errorMessage.Equals("G") || errorMessage.Equals("H"))
 				{
 					boxChoicePointValues[i] = -1;
 				}

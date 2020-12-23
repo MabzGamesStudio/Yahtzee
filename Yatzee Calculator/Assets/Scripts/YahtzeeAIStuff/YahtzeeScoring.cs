@@ -160,10 +160,6 @@ public static class YahtzeeScoring
 		{
 			throw new System.Exception("D: The boxIndex must be between 0 and 12. The given boxIndex is " + boxIndex);
 		}
-		if (gameState.GetBoxesFilledIn()[boxIndex])
-		{
-			throw new System.Exception("E: The gameState is already filled in at the boxIndex.");
-		}
 
 		// If the yahtzee box is already filled in, then the yatzee bonus available is the same as the previous gameState
 		if (gameState.GetBoxesFilledIn()[11])
